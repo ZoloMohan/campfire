@@ -1,0 +1,67 @@
+<% include ../partials/header %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="list-group">
+                <div class="list-group-item list-group-item-action active">Info 1</div>
+                <div class="list-group-item list-group-item-action">Info 2</div>
+                <div class="list-group-item list-group-item-action">Info 3</div>
+            </ul>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="card">
+                <img src="<%= campground.image %>" alt="Camp Image" class="img-fluid img-rounded">
+                <div class="card-body">
+                    <h4 class="card-title"><a href=""><%= campground.name %></a></h4>
+                    <p class="text-muted"><em>Submitted by <%= campground.author.username%></em></p>
+                    <h5 class="pull-right">$ <%= campground.price %>/night</h5>
+                    <p class="card-text"><%= campground.description %></p>
+                    <a href="#" class="btn btn-success"><i class="fas fa-check mr-1"></i> Book</a>
+                    
+                    <% if(currentUser && campground.author.id.equals(currentUser._id)) {%>
+                    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning mx-1"><i class="far fa-edit mr-1"></i> Edit</a>
+                    <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
+                        <button href="/campgrounds/<%= campground._id %>/edit" class="btn btn-danger"><i class="fas fa-trash mr-1"></i> Delete</button>
+                    </form>
+                    <%}%>
+                </div>
+            </div>
+
+            <div class="card bg-light my-4">
+                <div class="card-body">
+                    <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Leave a Review" name="comment[content]" required>
+                        <div class="input-group-append">
+                            <input type="submit" class="btn btn-success">
+                        </div>
+                    </div>
+                    </form>
+                    <hr>
+                    <div class="card-text">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <% campground.comments.forEach(function(comments){  %>
+                                <strong><%= comments.author.username %></strong> 
+                                <p><%= comments.content %></p>
+                                <% if(currentUser && comments.author.id.equals(currentUser._id)) {%>
+                                <a href="/campgrounds/<%= campground._id%>/comments/<%= comments._id%>/edit" class="btn btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                <form action="/campgrounds/<%= campground._id %>/comments/<%= comments.id%>?_method=DELETE" method="POST" class="d-inline">
+                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                                <%}%>
+                                <hr>
+                                <%})%>    
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<% include ../partials/footer %>

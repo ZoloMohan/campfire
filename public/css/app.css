@@ -1,0 +1,74 @@
+body{
+    overflow-x: hidden;
+    user-select: none;
+    font-family: Raleway, sans-serif;
+    /* background-color: #faf7f3; */
+}
+
+.navbar{
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.navbar-brand{
+    font-weight: 100;
+}
+
+.nav-link{
+    font-weight: 100;
+    font-size: 24px;
+}
+
+.nav-link:hover{
+    font-weight: 200;
+    font-size: 24px;
+    border-bottom: 1px solid white;
+}
+
+.form{
+    min-width: 300px;
+    width: 35%;
+    margin: 20px auto;
+}
+
+/* .jumbotron{
+    background-color: rgb(43, 44, 46);
+    color: aliceblue;
+} */
+
+#banner{
+    background-image: url('../images/index.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 330px;
+}
+
+#newSite{
+    border-radius: 50px;
+    background-color: #eaab77;
+    border-color: #eaab77;
+    font-size: 18px;
+}
+
+input[type='text'], input[type='password'], input[type='number']{
+    border-radius: 50px;
+}
+
+.authbtn{
+    background-color: #eaab77;
+    border-color: #eaab77;
+    border-radius: 50px;
+}
+
+.authbtn:hover{
+    background-color: #a77145;
+    border-color: #a77145;
+}
+
+a{
+    color: #a77145;
+}
