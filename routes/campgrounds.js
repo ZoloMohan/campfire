@@ -30,7 +30,8 @@ router.post("/", middleware.isLoggedIn ,function(req, res){
             author:{
                 id: req.user._id,
                 username: req.user.username
-            }
+            },
+            coordinates: req.body.coordinates
         }, 
         function(error, campground){
             if(error) {
@@ -64,11 +65,14 @@ router.get("/:id/edit", middleware.isLoggedIn, middleware.checkCampgroundAuthori
 
 //Post Edit
 router.put("/:id", middleware.isLoggedIn , middleware.checkCampgroundAuthorization, function(req, res){
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(error, campground){
+    var campgroundFormData = req.body.campground;
+    campgroundFormData.coordinates = req.body.coordinates;
+    Campground.findByIdAndUpdate(req.params.id, campgroundFormData, function(error, campground){
         if(error){
             console.log(error);
             res.redirect("/campgrounds/"+req.params.id);  
         }
+        console.log(campground);
         res.redirect("/campgrounds/"+req.params.id+"");
     })
 })

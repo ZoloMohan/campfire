@@ -1,31 +1,61 @@
 <% include ../partials/header %>
-
+<link rel="stylesheet" href="/css/gmap.css">
 <div class="row">
 <div class="container">
-    <div class="text-center">
-        <h1 class="display-4 mt-5">Add Camp</h1>
-    </div>
-    <form action="/campgrounds" method="POST" class="form">
-    <div style="width: 30%; margin: 30px auto; min-width: 300px;">
-        <div class="form-group">
-        <input type="text" name="name" placeholder="Enter Camp Name" class="form-control">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center">
+                <h1 class="display-4 mt-5">Add Camp</h1>
+            </div>
+            <form action="/campgrounds" method="POST" class="form">
+            <div>
+                <div class="form-group">
+                <input type="text" name="name" placeholder="Enter Camp Name" class="form-control" required>
+                </div>
+                <%# <div class="form-group">
+                <input type="text" name="location" class="form-control" hidden required>
+                </div> %>
+                <div class="form-group">
+                    <input type="text" name="coordinates[lat]" class="form-control" required hidden>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="coordinates[long]" class="form-control" required hidden>
+                </div>
+                <div class="form-group">
+                <input type="number" name="price" placeholder="Enter Price/Night" step="0.01" min="0.01" class="form-control">
+                </div>
+                <div class="form-group">
+                <input type="text" name="image" placeholder="Enter Image URL" class="form-control">
+                </div>
+                <div class="form-group">
+                <textarea name="desc" id="description" cols="30" rows="10" class="form-control" placeholder="Enter Description"></textarea>
+                </div>
+                <div class="form-group">
+                <input type="submit" class="btn btn-info btn-block">
+                </div>
+            <a href="/campgrounds">< Go Back</a>
+            </div>
+            </form>
         </div>
-        <div class="form-group">
-        <input type="number" name="price" placeholder="Enter Price/Night" step="0.01" min="0.01" class="form-control">
+        <div class="col-md-8 mt-5">
+            
+            <div style="display: none">
+                <input id="pac-input"
+                    class="controls"
+                    type="text"
+                    placeholder="Enter a location">
+            </div>
+
+            <div id="map"></div>
+            <div id="infowindow-content">
+                <span id="place-name" class="title"></span><br>
+                <strong>Place ID:</strong> <span id="place-id"></span><br>
+                <span id="place-address"></span>
+            </div>    
         </div>
-        <div class="form-group">
-        <input type="text" name="image" placeholder="Enter Image URL" class="form-control">
-        </div>
-        <div class="form-group">
-        <textarea name="desc" id="description" cols="30" rows="10" class="form-control" placeholder="Enter Description"></textarea>
-        </div>
-        <div class="form-group">
-        <input type="submit" class="btn btn-info btn-block">
-        </div>
-    <a href="/campgrounds">< Go Back</a>
-    </div>
-    </form>
-</div> 
-</div>
+
+    <script src="/js/placeFinder.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5HBuQQ1a4Uoyr_l7yxJokjnQDO43Nruk&libraries=places&callback=initMap"
+        async defer></script>
 
 <% include ../partials/footer %>

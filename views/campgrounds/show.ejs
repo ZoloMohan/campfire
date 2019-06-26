@@ -1,67 +1,87 @@
 <% include ../partials/header %>
+<link rel="stylesheet" href="/css/gmap.css">
 
-<div class="container mt-4">
+<header class="banner d-flex justify-content-center align-items-center" style="background-image: url(<%= campground.image %>);">
+    <div class="overlay"></div>
+    <div class="header container text-center text-white"> 
+        <h1 class='display-3 d-block'><%= campground.name %></h1>
+    <a href="/campgrounds/new"class=" btn btn-info px-4" id="newSite">Book</a>
+    </div>
+</header>
+
+
+<div class="container-fluid mt-5 px-5">
     <div class="row">
-        <div class="col-md-3">
-            <ul class="list-group">
-                <div class="list-group-item list-group-item-action active">Info 1</div>
-                <div class="list-group-item list-group-item-action">Info 2</div>
-                <div class="list-group-item list-group-item-action">Info 3</div>
-            </ul>
+        <div class="col-md-5">
+        <div class="text-center">
+            <%# Maps Link %>
         </div>
-        
-        <div class="col-md-9">
-            <div class="card">
-                <img src="<%= campground.image %>" alt="Camp Image" class="img-fluid img-rounded">
-                <div class="card-body">
-                    <h4 class="card-title"><a href=""><%= campground.name %></a></h4>
-                    <p class="text-muted"><em>Submitted by <%= campground.author.username%></em></p>
-                    <h5 class="pull-right">$ <%= campground.price %>/night</h5>
-                    <p class="card-text"><%= campground.description %></p>
-                    <a href="#" class="btn btn-success"><i class="fas fa-check mr-1"></i> Book</a>
-                    
-                    <% if(currentUser && campground.author.id.equals(currentUser._id)) {%>
-                    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning mx-1"><i class="far fa-edit mr-1"></i> Edit</a>
-                    <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
-                        <button href="/campgrounds/<%= campground._id %>/edit" class="btn btn-danger"><i class="fas fa-trash mr-1"></i> Delete</button>
-                    </form>
-                    <%}%>
-                </div>
+            <div id="map"></div>
+        </div>
+        <div class="col-md-7">
+        <div class="postoptions mb-4">
+            <a href="https://maps.google.com/?q=<%= campground.coordinates.lat %>,<%= campground.coordinates.long %>" id="gMapLink">View in Google Maps</a> 
+            <% if(currentUser.equals(campground.author.id)) { %>
+            <p class="d-inline"> | </p>
+            <p class=" d-inline"><a href="/campgrounds/<%= campground.id %>/edit" id="showCampDeleteBtn">Edit</a></p>
+            <p class="d-inline"> | </p>
+            <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
+                <button id="showCampDeleteBtn">Delete</button>
+            </form>
+            <%}%>
             </div>
-
-            <div class="card bg-light my-4">
-                <div class="card-body">
-                    <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Leave a Review" name="comment[content]" required>
-                        <div class="input-group-append">
-                            <input type="submit" class="btn btn-success">
-                        </div>
-                    </div>
-                    </form>
-                    <hr>
-                    <div class="card-text">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <% campground.comments.forEach(function(comments){  %>
-                                <strong><%= comments.author.username %></strong> 
-                                <p><%= comments.content %></p>
-                                <% if(currentUser && comments.author.id.equals(currentUser._id)) {%>
-                                <a href="/campgrounds/<%= campground._id%>/comments/<%= comments._id%>/edit" class="btn btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                <form action="/campgrounds/<%= campground._id %>/comments/<%= comments.id%>?_method=DELETE" method="POST" class="d-inline">
-                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                                <%}%>
-                                <hr>
-                                <%})%>    
-                            </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-
-
+            <input type="text" id="lattitude" value="<%= campground.coordinates.lat %>" hidden>
+            <input type="text" id="longitude" value="<%= campground.coordinates.long %>" hidden>
+            <p class="lead mb-0"> <strong> Price: $ <%= campground.price %>/night </strong></p>
+            <p class="mt-0 lead">Submitted by <%= campground.author.username %></p>
+            <p class="lead" id="campgroundDesc"> <%=campground.description%></p>
         </div>
     </div>
+    
+    <hr>
+
+    <div class="container-fluid px-5" id="commentSection">
+    <div class="row">
+        <div class="offset-md-3 col-md-8">
+            <div class="ui comments" style="margin: 0; width: 100%;">
+                <h3 class="ui dividing header mt-4 mb-3">Comments</h3>
+                <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+                    <div class="ui action input mb-3" style="width: 100%">
+                        <input type="text" placeholder="Comment" name="comment[content]" style="border-radius: 10px;">
+                        <button class="ui button" id="commentSubmit">Submit</button>
+                    </div>
+                </form>
+                <% campground.comments.forEach(function(comment){ %>
+                <div class="comment">
+                    <a class="avatar">
+                        <img src="/images/img_avatar.png">
+                    </a>
+                    <div class="content">
+                        <a class="author"><%= comment.author.username %></a>    
+                        <div class="metadata">
+                        <span class="date">Today at <%= comment.created.toDateString() %></span>
+                        </div>
+                        <div class="text">
+                            <%=comment.content%>
+                        </div>
+                        <div class="actions">
+                            <a href="/campgrounds/<%= campground._id%>/comments/<%= comment._id%>/edit" class="reply">Edit</a>
+                            <form action="/campgrounds/<%= campground._id %>/comments/<%= comment.id%>?_method=DELETE" method="POST" class="d-inline">
+                                <button id="showDeleteBtn">Delete</button>
+                            </form>        
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/placeViewer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5HBuQQ1a4Uoyr_l7yxJokjnQDO43Nruk&libraries=places&callback=initMap"
+        async defer></script>
+    
 
 <% include ../partials/footer %>
