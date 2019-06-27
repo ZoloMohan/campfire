@@ -34,55 +34,31 @@ body{
 }
 
 .banner{
-    background-image: url('../images/index.jpg');
+    background: url("https://i.ibb.co/gb0Rst2/index.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     min-height: 330px;
 }
 
-.banner .overlay {
-    z-index: 0;
-    background: rgba(0, 0, 0, 0.9);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* height: 100%; } */
-}
-
 #campgroundDesc{
     text-align: justify;    
 }
 
-#newSite{
+.headerButton{
     border-radius: 50px;
     background-color: #eaab77;
     border-color: #eaab77;
     font-size: 18px;
+    color: aliceblue;
 }
 
 input[type='text'], input[type='password'], input[type='number']{
-    border-radius: 50px;
-}
-
-.authbtn{
-    background-color: #eaab77;
-    border-color: #eaab77;
-    border-radius: 50px;
-}
-
-.authbtn:hover{
-    background-color: #a77145;
-    border-color: #a77145;
+    border-radius: 10px;
 }
 
 a{
     color: #eaab77;
-}
-
-iframe{
-    border-radius: 10px;
 }
 
 #showCampDeleteBtn{
@@ -96,11 +72,16 @@ iframe{
     text-decoration: underline;
 }
 
-#showDeleteBtn{
+.showDeleteBtn{
     font-size: 14px;
     border: none;
     background-color: rgba(0,0,0,0);
-    color: rgb(155, 152, 152);    
+    color: rgb(155, 152, 152);   
+    outline: none; 
+}
+
+.showDeleteBtn:hover{
+    text-decoration: underline;
 }
 
 #gMapLink{
@@ -111,10 +92,19 @@ iframe{
     margin-bottom: 150px;
 }
 
-#commentSubmit{
+.commentSubmit{
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: #eaab77;
+    border-color: #eaab77;
     color: white;
     font-family: Raleway, sans-serif;
+}
+
+#commentEditSubmitBtn{
+    background-color: #eaab77;
+}
+
+.actions button{
+    outline: none;
 }

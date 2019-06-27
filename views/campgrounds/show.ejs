@@ -5,7 +5,7 @@
     <div class="overlay"></div>
     <div class="header container text-center text-white"> 
         <h1 class='display-3 d-block'><%= campground.name %></h1>
-    <a href="#"class=" btn btn-info px-4" id="newSite">Book</a>
+    <a href=""class=" btn px-4 headerButton">Book</a>
     </div>
 </header>
 
@@ -13,15 +13,12 @@
 <div class="container-fluid mt-5 px-5">
     <div class="row">
         <div class="col-md-5">
-        <div class="text-center">
-            <%# Maps Link %>
-        </div>
             <div id="map"></div>
         </div>
         <div class="col-md-7">
         <div class="postoptions mb-4">
             <a href="https://maps.google.com/?q=<%= campground.coordinates.lat %>,<%= campground.coordinates.long %>" id="gMapLink">View in Google Maps</a> 
-            <% if(currentUser.equals(campground.author.id)) { %>
+            <% if(currentUser && currentUser.equals(campground.author.id)) { %>
             <p class="d-inline"> | </p>
             <p class=" d-inline"><a href="/campgrounds/<%= campground.id %>/edit" id="showCampDeleteBtn">Edit</a></p>
             <p class="d-inline"> | </p>
@@ -33,7 +30,13 @@
             <input type="text" id="lattitude" value="<%= campground.coordinates.lat %>" hidden>
             <input type="text" id="longitude" value="<%= campground.coordinates.long %>" hidden>
             <p class="lead mb-0"> <strong> Price: $ <%= campground.price %>/night </strong></p>
-            <p class="mt-0 lead">Submitted by <%= campground.author.username %></p>
+            <p class="mt-0 lead">Submitted by 
+                <% if(currentUser && currentUser.equals(campground.author.id)) { %>
+                    You
+                <%} else {%>
+                <%= campground.author.username %>
+                <%}%>
+            </p>
             <p class="lead" id="campgroundDesc"> <%=campground.description%></p>
         </div>
     </div>
@@ -43,18 +46,20 @@
     <div class="container-fluid px-5" id="commentSection">
     <div class="row">
         <div class="offset-md-3 col-md-8">
-            <div class="ui comments" style="margin: 0; width: 100%;">
-                <h3 class="ui dividing header mt-4 mb-3">Comments</h3>
+            <div class="ui comments">
+                <h3 class="ui dividing header my-4">Comments</h3>
                 <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
-                    <div class="ui action input mb-3" style="width: 100%">
-                        <input type="text" placeholder="Comment" name="comment[content]" style="border-radius: 10px;">
-                        <button class="ui button" id="commentSubmit">Submit</button>
+                     <div class="input-group my-3">
+                        <input type="text" class="form-control" name="comment[content]" placeholder="Comment Here">
+                        <div class="input-group-append">
+                        <input type="submit" value="Submit" class="btn commentSubmit">
+                        </div>
                     </div>
                 </form>
                 <% campground.comments.forEach(function(comment){ %>
                 <div class="comment">
                     <a class="avatar">
-                        <img src="/images/img_avatar.png">
+                        <img src="https://www.w3schools.com/howto/img_avatar.png">
                     </a>
                     <div class="content">
                         <a class="author"><%= comment.author.username %></a>    
@@ -62,14 +67,30 @@
                         <span class="date">Today at <%= comment.created.toDateString() %></span>
                         </div>
                         <div class="text">
-                            <%=comment.content%>
+
+                            <form action="/campgrounds/<%= campground.id %>/comments/<%= comment._id %>?_method=PUT" method="POST" class="d-none" id="<%=comment.id%>form">
+                                <div class="input-group my-2">
+                                    <input type="text" class="form-control" value="<%=comment.content%>" name="comment[content]">
+                                    <div class="input-group-append">
+                                    <input type="submit" value="Submit" class="btn commentSubmit" id="<%=comment.id%>submit">
+                                    </div>
+                                </div>
+                            </form>
+
+                            
+                            <div id="<%=comment.id%>commentTextDisplay">
+                                <%=comment.content%>
+                            </div>
                         </div>
+                        <% if(currentUser && currentUser.equals(comment.author.id)) {%>
                         <div class="actions">
-                            <a href="/campgrounds/<%= campground._id%>/comments/<%= comment._id%>/edit" class="reply">Edit</a>
+                            <button class="showDeleteBtn commentEditBtn" id="<%= comment.id%>" onclick="toggleEditForm(this)">Edit</button>
                             <form action="/campgrounds/<%= campground._id %>/comments/<%= comment.id%>?_method=DELETE" method="POST" class="d-inline">
-                                <button id="showDeleteBtn">Delete</button>
-                            </form>        
+                                <button class="showDeleteBtn">Delete</button>
+                            </form>         
                         </div>
+                        <%}%>
+
                     </div>
                 </div>
                 <% }) %>
@@ -79,9 +100,12 @@
 
 </div>
 
+<script src="/lib/jQuery.3.1.1.min.js"></script>
 <script src="/js/placeViewer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5HBuQQ1a4Uoyr_l7yxJokjnQDO43Nruk&libraries=places&callback=initMap"
         async defer></script>
+
+<script src="/js/editComment.js"></script>
     
 
 <% include ../partials/footer %>

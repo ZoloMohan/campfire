@@ -30,7 +30,7 @@ router.get("/:comment_id/edit",middleware.isLoggedIn,middleware.checkCommentAuth
         Comment.findById(req.params.comment_id, function(error, comment){
             if(error) res.redirect("back");
             else
-            res.render("comments/new", {comment: comment, campground: req.params.id});
+            res.render("comments/edit", {comment: comment, campground: req.params.id});
         })
 })
 

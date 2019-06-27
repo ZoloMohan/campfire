@@ -5,7 +5,7 @@ var express = require("express"),
 
 //Landing
 router.get("/", function(req, res){
-    res.render("index");
+    res.render("landing");
 });
 
 //show register form

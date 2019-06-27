@@ -16,20 +16,11 @@ function initMap() {
     zoom: 13
   });
   
-  var infowindow = new google.maps.InfoWindow();
-  var infowindowContent = document.getElementById('infowindow-content');
-  infowindow.setContent(infowindowContent);
-
-  
-  
   var marker = new google.maps.Marker({
     position: myLatLng,
     draggable: false,
     map: map
   });
   marker.setVisible(true);
-  
-  infowindowContent.children['place-name'].textContent = place.name;
-  infowindow.open(map, marker);
   
 }
