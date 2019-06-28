@@ -36,7 +36,10 @@
                                 </div>
                             </div>
                             <div class="extra content">
-                                <i class="user icon"></i><%= campground.author.username %>
+                                <div class="ui heart rating" data-rating="3" data-max-rating="5"></div>
+                                <div class="float-right">
+                                    <i class="icon comment"></i><%= campground.reviews.length %>
+                                </div>  
                             </div>
                         </div>
                     </a>
@@ -48,4 +51,7 @@
 
 </div>
 
+<script src="/lib/jQuery.3.1.1.min.js"></script>
+<script src="/lib/semantic/dist/components/rating.min.js"></script>
+<script src="/js/ratingInitandEdit.js"></script>
 <% include ../partials/footer %>

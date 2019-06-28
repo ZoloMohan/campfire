@@ -1,3 +1,3 @@
-// $('#loginButton').click(function(){
-//     $('.ui.modal').modal('show');
-// })
+$('#reviewBtn').click(function(){
+    $('.ui.modal').modal('show');
+})

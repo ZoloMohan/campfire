@@ -1,20 +1,6 @@
 var mongoose = require("mongoose");
 
 var campgroundSchema = new mongoose.Schema({
-    name: String,
-    price: String,
-    image: String,
-    description: String,
-    coordinates: {
-        lat: String,
-        long: String
-    },
-    comments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"Comment"
-        }
-    ],
     author: {
         id:{
             type: mongoose.Schema.Types.ObjectId,
@@ -22,7 +8,21 @@ var campgroundSchema = new mongoose.Schema({
         },
         username: String
     },
-        
+    name: String,
+    price: String,
+    rating: Number,
+    image: String,
+    description: String,
+    coordinates: {
+        lat: String,
+        long: String
+    },
+    reviews: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"Review"
+        }
+    ],
     created: {type: Date, default: Date.now}
 });
 

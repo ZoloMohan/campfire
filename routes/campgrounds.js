@@ -2,7 +2,7 @@ var express = require("express"),
     router = express.Router();
    
 var Campground = require("../models/campground"),
-middleware = require("../middleware");
+    middleware = require("../middleware");
 
 
 //Index Page
@@ -46,7 +46,7 @@ router.post("/", middleware.isLoggedIn ,function(req, res){
 
 //Show Camp Details 
 router.get("/:id", function(req, res){
-    Campground.findById(req.params.id).populate("comments").exec(function(error, foundCampground){
+    Campground.findById(req.params.id).populate("reviews").exec(function(error, foundCampground){
         if(error){
           console.log("Error at /campmgrounds/:id: Can't Retrieve Campground Details.")   
         }

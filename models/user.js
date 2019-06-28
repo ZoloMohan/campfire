@@ -4,6 +4,12 @@ var mongoose = require("mongoose"),
 var userSchema = new mongoose.Schema({
     username: String,
     password: String,
+    reviewedCamps: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "campground"
+        }
+    ],
     created: {type: Date, default: Date.now}
 });
 

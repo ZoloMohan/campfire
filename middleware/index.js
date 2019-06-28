@@ -1,12 +1,12 @@
 var Campground = require("../models/campground"),
-    Comment    = require("../models/comment");
+    Review    = require("../models/review");
 
 var middleware = {
-    checkCommentAuthorization: function (req, res, next){
-        Comment.findById(req.params.comment_id, function(error, comment){
+    checkReviewAuthorization: function (req, res, next){
+        Review.findById(req.params.review_id, function(error, review){
             if(error) res.redirect("back");
             else{
-                if(comment.author.id.equals(req.user.id)){
+                if(review.author.id.equals(req.user.id)){
                     next();
                 }
                 else {

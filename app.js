@@ -8,7 +8,7 @@ var express       = require("express"),
     flash         = require('connect-flash'),
     User          = require("./models/user");
 
-var commentRoutes = require("./routes/comments"),
+var reviewRoutes = require("./routes/reviews"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index")
 
@@ -38,7 +38,7 @@ app.use(function(req, res, next){
 })
 
 app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use(indexRoutes);
 
 passport.use(new localStrategy(User.authenticate()));

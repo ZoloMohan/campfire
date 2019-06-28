@@ -12,10 +12,12 @@
 
 <div class="container-fluid mt-5 px-5">
     <div class="row">
+    <%# MAP SECTION %>
         <div class="col-md-5">
             <div id="map"></div>
         </div>
         <div class="col-md-7">
+        <%# POST OPTIONS %>
         <div class="postoptions mb-4">
             <a href="https://maps.google.com/?q=<%= campground.coordinates.lat %>,<%= campground.coordinates.long %>" id="gMapLink">View in Google Maps</a> 
             <% if(currentUser && currentUser.equals(campground.author.id)) { %>
@@ -25,10 +27,21 @@
             <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
                 <button id="showCampDeleteBtn">Delete</button>
             </form>
-            <%}%>
+            <% } %>
+            <div class="float-right">
+                <p class="lead d-inline">Ratings: </p>
+                <div class="ui heart rating" data-rating="3" data-max-rating="5"></div>
+            </div>
             </div>
             <input type="text" id="lattitude" value="<%= campground.coordinates.lat %>" hidden>
             <input type="text" id="longitude" value="<%= campground.coordinates.long %>" hidden>
+   
+             <% if(currentUser && currentUser.reviewedCamps.includes(campground._id)){ %>
+            <a href="#reviewSection" class="btn btn-info float-right headerButton px-4" id="reviewBtn"> Edit Your Review </a>             
+            <%} else {%>
+            <button class="btn btn-info float-right headerButton px-4" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </button>
+            <% } %>
+
             <p class="lead mb-0"> <strong> Price: $ <%= campground.price %>/night </strong></p>
             <p class="mt-0 lead">Submitted by 
                 <% if(currentUser && currentUser.equals(campground.author.id)) { %>
@@ -43,69 +56,86 @@
     
     <hr>
 
-    <div class="container-fluid px-5" id="commentSection">
+    <div class="container-fluid px-5" id="reviewSection">
     <div class="row">
         <div class="offset-md-3 col-md-8">
             <div class="ui comments">
-                <h3 class="ui dividing header my-4">Comments</h3>
-                <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
-                     <div class="input-group my-3">
-                        <input type="text" class="form-control" name="comment[content]" placeholder="Comment Here">
-                        <div class="input-group-append">
-                        <input type="submit" value="Submit" class="btn commentSubmit">
-                        </div>
-                    </div>
-                </form>
-                <% campground.comments.forEach(function(comment){ %>
-                <div class="comment">
+            <div class="comment">
+                <h3 class="ui dividing header my-4">Reviews </h3>
+                <% campground.reviews.forEach(function(review){ %>
                     <a class="avatar">
                         <img src="https://www.w3schools.com/howto/img_avatar.png">
                     </a>
                     <div class="content">
-                        <a class="author"><%= comment.author.username %></a>    
+                        <a class="author"><%= review.author.username %></a>    
                         <div class="metadata">
-                        <span class="date">Today at <%= comment.created.toDateString() %></span>
+                        <span class="date">Today at <%= review.created.toDateString() %></span>
                         </div>
                         <div class="text">
-
-                            <form action="/campgrounds/<%= campground.id %>/comments/<%= comment._id %>?_method=PUT" method="POST" class="d-none" id="<%=comment.id%>form">
+                            <form action="/campgrounds/<%= campground.id %>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none" id="<%=review.id%>form">
                                 <div class="input-group my-2">
-                                    <input type="text" class="form-control" value="<%=comment.content%>" name="comment[content]">
+                                    <input type="text" class="form-control" value="<%=review.content%>" name="review[content]">
+                                    <input type="number" id="<%=review.id%>editRatingField" name="review[rating]" hidden>
                                     <div class="input-group-append">
-                                    <input type="submit" value="Submit" class="btn commentSubmit" id="<%=comment.id%>submit">
+                                    <input type="submit" value="Submit" class="btn reviewSubmit" id="<%=review.id%>submit">
                                     </div>
                                 </div>
+                            <div class="ui heart rating interactable d-none edit" id="<%=review.id%>editRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
                             </form>
-
-                            
-                            <div id="<%=comment.id%>commentTextDisplay">
-                                <%=comment.content%>
+                            <div id="<%=review.id%>reviewTextDisplay" class="mb-2">
+                                <%=review.content%>
                             </div>
+                        <div class="ui heart rating" id="<%=review.id%>displayRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
                         </div>
-                        <% if(currentUser && currentUser.equals(comment.author.id)) {%>
+                        <% if(currentUser && currentUser.equals(review.author.id)) {%>
                         <div class="actions">
-                            <button class="showDeleteBtn commentEditBtn" id="<%= comment.id%>" onclick="toggleEditForm(this)">Edit</button>
-                            <form action="/campgrounds/<%= campground._id %>/comments/<%= comment.id%>?_method=DELETE" method="POST" class="d-inline">
+                            <button class="showDeleteBtn reviewEditBtn" id="<%= review.id%>" onclick="toggleEditForm(this)">Edit</button>
+                            <form action="/campgrounds/<%= campground._id %>/reviews/<%= review.id%>?_method=DELETE" method="POST" class="d-inline">
                                 <button class="showDeleteBtn">Delete</button>
                             </form>         
                         </div>
                         <%}%>
 
                     </div>
-                </div>
                 <% }) %>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
+
+<div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h1 class=" d-inline lead">Rate:</h3>
+        <div class="ui rating heart interactable" data-rating="0" data-max-rating="5"></div>
+        <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
+            <input type="text" id="ratingField" name="review[rating]"hidden>
+            <textarea name="review[content]" id="reviewContent" cols="30" rows="10" class="form-control mt-3" placeholder="Add Your Review Here"></textarea>
+            <input type="submit" value="Submit" class="btn btn-primary float-right mt-3">
+        </form>
+    </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="/lib/jQuery.3.1.1.min.js"></script>
 <script src="/js/placeViewer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5HBuQQ1a4Uoyr_l7yxJokjnQDO43Nruk&libraries=places&callback=initMap"
         async defer></script>
-
-<script src="/js/editComment.js"></script>
+<script src="/lib/semantic/dist/components/rating.min.js"></script>
+<script src="/lib/semantic/dist/components/modal.min.js"></script>
+<script src="/js/modalLaunch.js"></script>
+<script src="/js/ratingInitandEdit.js"></script>
     
 
 <% include ../partials/footer %>
