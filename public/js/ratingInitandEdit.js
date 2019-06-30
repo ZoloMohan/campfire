@@ -1,5 +1,13 @@
 var editId;
 
+// $('#bookingBtn').click(function(){
+//    $('.toast-container')
+//   .toast({
+//       displayTime: 2000,
+//       message: 'I am a toast !'
+//   });
+// })
+
 $('.ui.rating').rating('disable');
 $('.ui.rating.interactable').rating();
 

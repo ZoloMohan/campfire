@@ -1,0 +1,41 @@
+<% include ../partials/header %>
+<link rel="stylesheet" href="/css/auth.css">
+<div class="container">
+    <div class="row">
+        <div class="offset-md-5 col-md-6" id="loginFormSection">
+        <div class="text-center mt-5">
+        <h1 class="display-4 text-white"><i class="fas fa-campground"></i> yelpcamp</h1>
+        </div>
+
+        <div class="text-center" id="signUpForm">
+        <h1 class="text-white mb-4">Sign Up</h1>
+         <form action="/register" method="POST" class="mx-5" onsubmit="return validate();">
+            <div class="form-group">
+                <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" class="form-control" required>
+            </div>
+            <p class="d-none text-danger" id="dontMatch">Passwords Don't Match</p>
+            <button class="btn px-4 mb-4 mt-3" id="submitBtn">Submit</button>
+        </form>
+        <a href="/login">Already an User? Login</a>
+        </div>
+    </div>
+</div>
+<script src="/lib/jQuery.3.1.1.min.js"></script>
+<script src="/js/confirmPassword.js"></script>
+<script src="/lib/semantic/dist/components/transition.js"></script>
+<% include ../partials/footer %>

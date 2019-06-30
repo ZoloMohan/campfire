@@ -1,5 +1,5 @@
 <% include ../partials/header %>
-
+<%include  ../partials/transparentNav%>
 
 <header class="banner d-flex justify-content-center align-items-center">
     <div class="overlay"></div>
@@ -36,7 +36,8 @@
                                 </div>
                             </div>
                             <div class="extra content">
-                                <div class="ui heart rating" data-rating="3" data-max-rating="5"></div>
+                                <i class="star icon"></i>
+                                <%= campground.rating %>                                
                                 <div class="float-right">
                                     <i class="icon comment"></i><%= campground.reviews.length %>
                                 </div>  

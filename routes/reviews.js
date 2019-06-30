@@ -7,21 +7,30 @@ var Campground = require("../models/campground"),
     middleware = require("../middleware");
 
 router.post("/", middleware.isLoggedIn,  function(req, res){
-    Campground.findById(req.params.id, function(error, foundCampground){
+    Campground.findById(req.params.id, function(error, campground){
         if(error) console.log(error);
         else{
+            console.log(campground);
             Review.create(req.body.review, function(error, review){
                 if(error) console.log(error);
                 else{
                     review.author.id = req.user.id;
                     review.author.username = req.user.username;
                     review.save();
-                    foundCampground.reviews.push(review);
-                    foundCampground.save();
-                    req.user.reviewedCamps.push(foundCampground._id);
+                    campground.rating = 0;
+                    campground.reviews.push(review);
+                    // for(var i = 0; i < campground.reviews.length; i++){
+                        Review.find(campground.reviews, function(error, foundReview){
+                            if(error) console.log(error);
+                            else
+                                console.log(foundReview);
+                        });
+                    // };
+                    campground.save();
+                    req.user.reviewedCamps.push(campground._id);
                     req.user.save();
                     req.flash("success", "Review Created")
-                    res.redirect("/campgrounds/" + foundCampground._id);
+                    res.redirect("/campgrounds/" + campground._id);
                 }
             });
         }   
@@ -68,8 +77,6 @@ router.delete("/:review_id",middleware.isLoggedIn, middleware.checkReviewAuthori
                 }
             }
         }
-    });
-    
+    });  
 })
-
 module.exports = router;

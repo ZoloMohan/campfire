@@ -1,0 +1,74 @@
+html{
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    background-image: url('https://i.ibb.co/gb0Rst2/index.jpg');
+    background-size: 100% 100%;
+    background-size: no-repeat; 
+    height: 100%;
+    margin: 0;
+}
+
+.container{
+    position: fixed;
+    vertical-align: center;
+    height: 100%;
+}
+
+.row{
+    height: 100%;
+}
+
+#loginFormSection{
+    background-color: rgba(0,0,0,0.6);
+    height: 100%;
+    z-index: 9999;
+}
+
+.btn{
+    border-radius: 30px;
+    background-color: #eaab77;
+    border-color: #eaab77;
+    color: white;
+}
+
+#loginForm{
+    margin-top : 15vh;
+}
+
+#signUpForm{
+    margin-top: 5vh;
+}
+
+input[type='text'], input[type='password'], input[type='email']{
+    width: 100%;
+    color: #eaab77;
+    border-radius: 0px;
+    outline: none;
+    background-color: rgba(0,0,0,0.0);
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+input[type='text']:focus, input[type='password']:focus, input[type='email']:focus{
+    box-shadow: none;
+    background-color: rgba(0,0,0,0.0);
+    color: #eaab77;
+    outline: none;
+    background-color: rgba(0,0,0,0.0);
+    border-bottom: 2px solid #eaab77;
+}
+
+@-webkit-keyframes autofill {
+    to {
+        color: #eaab77;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}

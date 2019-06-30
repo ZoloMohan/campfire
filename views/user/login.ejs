@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+<link rel="stylesheet" href="/css/auth.css">
+<div class="container">
+    <div class="row">
+        <div class="offset-md-5 col-md-6" id="loginFormSection">
+        <div class="text-center mt-5">
+        <h1 class="display-4 text-white"><i class="fas fa-campground"></i> yelpcamp</h1>
+        </div>
+
+        <div class="text-center" id="loginForm">
+        <h1 class="text-white mb-4">Log In</h1>
+        <form action="/login" method="POST" class="mx-5">
+            <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+            </div>
+            <button class="btn px-4 mb-5 mt-4">Submit</button>
+        </form>
+        <a href="/register">New Here? Register</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,17 @@
+<nav class="nav navbar navbar-expand-md navbar-dark ">
+    <a href="/campgrounds" class="navbar-brand"><h3 class="mb-0"><i class="fas fa-campground"></i> yelpcamp</h3></a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNavbar">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ml-auto">
+            <% if(currentUser){ %>
+                <li class="nav-link"><a href="/dashboard/<%=currentUser.username%>"><%= currentUser.username%></a></li>
+                <li><a href="/logout" class="nav-item nav-link">logout</a></li>
+            <% } else { %>
+                <li><a href="/login" class="nav-item nav-link">login</a></li>
+                <li><a href="/register" class="nav-item nav-link">signup</a></li>
+            <% } %>       
+        </ul>
+    </div>
+</nav>

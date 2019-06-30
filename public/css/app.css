@@ -9,8 +9,12 @@ body{
     font-family: Raleway, sans-serif;
 }
 
+::selection{
+    color: white;
+    background: #f3caa9;
+}
+
 .navbar{
-    
     position: absolute;
     top: 0;
     right: 0;
@@ -58,7 +62,11 @@ a{
     color: #eaab77;
 }
 
-input[type='text'], input[type='password'], input[type='number']{
+a:hover{
+    color: #d19a6c;
+}
+
+input[type='text'], input[type='password'], input[type='number'], input[type='email']{
     border-radius: 10px;
 }
 
@@ -66,9 +74,6 @@ input[type='text'], input[type='password'], input[type='number']{
     AUTH PAGES
 ============================================================================= */
 
-#loginForm{
-    display: inline-block;
-}
 
 
 /* ==============================================================================
