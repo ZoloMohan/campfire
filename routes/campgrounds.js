@@ -34,10 +34,14 @@ router.post("/", middleware.isLoggedIn ,function(req, res){
             coordinates: req.body.coordinates
         }, 
         function(error, campground){
-            if(error) {
+            if(error)
                 console.log("Error at /campgrounds POST: Cannot Post Data to db");
+            else{
+                User.findById(req.user.id, function(error, user){
+                    user.createdCamps.push(campground._id);
+                    user.save();
+                });
             }
-            else console.log(campground);
         }
     );
     res.redirect("/campgrounds");
@@ -48,7 +52,7 @@ router.post("/", middleware.isLoggedIn ,function(req, res){
 router.get("/:id", function(req, res){
     Campground.findById(req.params.id).populate("reviews").exec(function(error, foundCampground){
         if(error){
-          console.log("Error at /campmgrounds/:id: Can't Retrieve Campground Details.")   
+          console.log("Error at /campmgrounds/:id: Can't Retrieve Campground Details." + error)   
         }
         else res.render("campgrounds/show", {campground: foundCampground}); 
     });
@@ -77,11 +81,20 @@ router.put("/:id", middleware.isLoggedIn , middleware.checkCampgroundAuthorizati
     })
 })
 
+//Delete Campground
 router.delete("/:id", middleware.isLoggedIn, middleware.checkCampgroundAuthorization ,function(req, res){
-    Campground.findByIdAndRemove(req.params.id, function(error){
-        if(error) console.log(error);
-        res.redirect("/campgrounds");
-    })
+    User.findById(req.user.id, function(error, user){
+        for(var i = 0; i < user.createdCamps.length; i++)
+            if(user.createdCamps[i].equals(req.params.id)){
+                user.createdCamps.splice(i, 1);
+                user.save();
+                break;
+            }
+            Campground.findByIdAndRemove(req.params.id, function(error){
+            if(error) console.log(error);
+            res.redirect("/campgrounds");
+        })
+    });
 })
 
 module.exports = router;

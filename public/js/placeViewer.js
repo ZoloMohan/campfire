@@ -21,6 +21,5 @@ function initMap() {
     draggable: false,
     map: map
   });
-  marker.setVisible(true);
-  
+  marker.setVisible(true); 
 }

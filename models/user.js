@@ -7,10 +7,22 @@ var userSchema = new mongoose.Schema({
     email: String,
     username: String,
     password: String,
+    createdCamps: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Campground"
+        }
+    ],
     reviewedCamps: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "campground"
+            ref: "Campground"
+        }
+    ],
+    reviews:[
+        {
+             type: mongoose.Schema.Types.ObjectId,
+             ref: "Review"
         }
     ],
     created: {type: Date, default: Date.now}

@@ -28,6 +28,8 @@ body{
 .nav-link{
     font-weight: 100;
     font-size: 24px;
+    transition: border-bottom linear 0.1s;
+    transition: font-weight linear 0.1s;
 }
 
 .nav-link:hover{
@@ -69,12 +71,6 @@ a:hover{
 input[type='text'], input[type='password'], input[type='number'], input[type='email']{
     border-radius: 10px;
 }
-
-/* =============================================================================
-    AUTH PAGES
-============================================================================= */
-
-
 
 /* ==============================================================================
     SHOW PAGE

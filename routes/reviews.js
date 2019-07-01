@@ -14,23 +14,20 @@ router.post("/", middleware.isLoggedIn,  function(req, res){
             Review.create(req.body.review, function(error, review){
                 if(error) console.log(error);
                 else{
-                    review.author.id = req.user.id;
-                    review.author.username = req.user.username;
-                    review.save();
-                    campground.rating = 0;
-                    campground.reviews.push(review);
-                    // for(var i = 0; i < campground.reviews.length; i++){
-                        Review.find(campground.reviews, function(error, foundReview){
-                            if(error) console.log(error);
-                            else
-                                console.log(foundReview);
-                        });
-                    // };
-                    campground.save();
-                    req.user.reviewedCamps.push(campground._id);
-                    req.user.save();
-                    req.flash("success", "Review Created")
-                    res.redirect("/campgrounds/" + campground._id);
+                    User.findById(req.user.id, function(error, user){
+                        user.reviews.push(review._id);
+                        user.save();
+                        review.campground_id = campground._id;
+                        review.author.id = req.user.id;
+                        review.author.username = req.user.username;
+                        review.save();
+                        campground.reviews.push(review._id);
+                        campground.save();
+                        req.user.reviewedCamps.push(campground._id);
+                        req.user.save();
+                        req.flash("success", "Review Created")
+                        res.redirect("/campgrounds/" + campground._id);
+                    })
                 }
             });
         }   
@@ -59,18 +56,24 @@ router.delete("/:review_id",middleware.isLoggedIn, middleware.checkReviewAuthori
                     User.findById(req.user.id, function(error, user){
                         if(error) console.log(error);
                         else{
-                            for(var j = 0; j < user.reviewedCamps.length;j++){
-                                console.log(user.reviewedCamps.length)
+                            for(var j = 0; j < user.reviewedCamps.length;j++)
                                 if(user.reviewedCamps[j].equals(campground._id)){
                                     user.reviewedCamps.splice(j,1);
                                     user.save();
-                                    Review.findByIdAndRemove(req.params.review_id, function(error){
-                                        if(error) console.log(error);
-                                        req.flash("success", "review Deleted");
-                                        res.redirect("/campgrounds/"+req.params.id);
-                                    });
+                                    break;;
                                 }
-                            }
+                            for(var j = 0; j < user.reviews.length; j++)
+                                if(user.reviews[j].equals(req.params.review_id)){
+                                    console.log("Reached");
+                                    user.reviews.splice(j, 1);
+                                    user.save();
+                                    break;
+                                }
+                            Review.findByIdAndRemove(req.params.review_id, function(error){
+                                if(error) console.log(error);
+                                req.flash("success", "review Deleted");
+                                res.redirect("/campgrounds/"+req.params.id);
+                            });
                         }
                     })
                    

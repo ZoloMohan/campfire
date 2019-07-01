@@ -8,6 +8,10 @@ var reviewSchema = mongoose.Schema({
         },
         username: String
     },
+    campground_id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Campground"
+        },
     content: String,
     rating: Number,
     created: {type: Date, default: Date.now}
