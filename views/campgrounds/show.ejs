@@ -7,7 +7,7 @@
     <div class="overlay"></div>
     <div class="header container text-center text-white"> 
         <h1 class='display-3 d-block'><%= campground.name %></h1>
-    <button class=" btn px-4 headerButton" id="bookingBtn" data-toggle="modal" data-target="#bookCampModal">Book</button>
+    <button class=" btn btn-primary px-4 headerButton" id="bookingBtn" data-toggle="modal" data-target="#bookCampModal">Book</button>
     </div>
 </header>
 
@@ -39,9 +39,9 @@
             <input type="text" id="longitude" value="<%= campground.coordinates.long %>" hidden>
    
              <% if(currentUser && currentUser.reviewedCamps.includes(campground._id)){ %>
-            <a href="#reviewSection" class="btn btn-info float-right headerButton px-4" id="reviewBtn"> Edit Your Review </a>             
+            <a href="#reviewSection" class="btn btn-primary float-right px-4" id="reviewBtn"> Edit Your Review </a>             
             <%} else {%>
-            <button class="btn btn-info float-right headerButton px-4" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </button>
+            <button class="btn btn-primary float-right  px-4" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </button>
             <% } %>
 
             <p class="lead mb-0"> <strong> Price: $ <%= campground.price %>/night </strong></p>
