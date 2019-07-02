@@ -45,13 +45,14 @@
             <% } %>
 
             <p class="lead mb-0 number-regular"> <strong> Price: $ <%= campground.price %> / night </strong></p>
-            <p class="mt-0 lead">Submitted by 
+            <p class="my-0 lead">Submitted by 
                 <% if(currentUser && currentUser.equals(campground.author.id)) { %>
                     You
                 <%} else {%>
                 <%= campground.author.username %>
                 <%}%>
             </p>
+            <p id="createdOn">on <%=campground.created.toDateString()%></p>
             <p class="lead" id="campgroundDesc"> <%=campground.description%></p>
         </div>
     </div>
@@ -91,7 +92,7 @@
                                 <input type="submit" value="Submit" class="btn reviewSubmit" id="<%=review.id%>submit">
                                 </div>
                             </div>
-                            <div class="ui star rating interactable d-none edit" id="<%=review.id%>editRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+                            <div class="ui heart rating interactable d-none edit" id="<%=review.id%>editRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
                         </form>
                         <div id="<%=review.id%>reviewTextDisplay" class="mb-2 reviewText">
                             <%=review.content%>
@@ -137,7 +138,7 @@
 </div>
 
 <script src="/lib/jQuery.3.1.1.min.js"></script>
-<script src="/js/placeViewer.js"></script>
+<script src="/js/map/showMap.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5HBuQQ1a4Uoyr_l7yxJokjnQDO43Nruk&libraries=places&callback=initMap"
         async defer></script>
 <script src="/lib/semantic/dist/components/rating.min.js"></script>

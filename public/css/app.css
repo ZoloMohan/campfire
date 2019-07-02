@@ -79,6 +79,11 @@ input[type='submit']{
     text-align: justify;    
 }
 
+#createdOn{
+    color: gray;
+    font-weight: 200;
+}
+
 #showCampDeleteBtn{
     font-size: 18px;
     border: none;
