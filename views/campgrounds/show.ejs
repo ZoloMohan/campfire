@@ -44,7 +44,7 @@
             <button class="btn btn-primary float-right  px-4" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </button>
             <% } %>
 
-            <p class="lead mb-0"> <strong> Price: $ <%= campground.price %>/night </strong></p>
+            <p class="lead mb-0 number-regular"> <strong> Price: $ <%= campground.price %> / night </strong></p>
             <p class="mt-0 lead">Submitted by 
                 <% if(currentUser && currentUser.equals(campground.author.id)) { %>
                     You
@@ -60,9 +60,18 @@
 
     <div class="container-fluid px-5" id="reviewSection">
     <div class="row">
-        <div class="offset-md-3 col-md-8">
+        <div class="col-md-4">
+            <div class="text-center sticky-top pt-5">
+                <h5 class="mb-0">Ratings</h5>
+                <h2 class="display-2 number"><%=campground.rating.toFixed(1)%></h2>
+                <div class="ui rating heart" data-rating="<%=Math.floor(campground.rating)%>" data-max-rating="5"></div>
+                <h6><i class="user icon mr-2 mb-5 number"></i><%=campground.reviews.length%></h2>
+                <div class="ct-chart mt-2"></div>
+            </div>
+        </div>
+        <div class="offset-md-1 col-md-7">
             <div class="ui comments">
-            <h3 class="ui dividing header my-4">Reviews </h3>
+            <h3 class="ui dividing header mt-5">Reviews</h3>
             <% campground.reviews.forEach(function(review){ %>
             <div class="comment">
                 <a class="avatar">
@@ -71,7 +80,7 @@
                 <div class="content">
                     <a class="author"><%= review.author.username %></a>    
                     <div class="metadata">
-                    <span class="date">Today at <%= review.created.toDateString() %></span>
+                    <span class="date number-regular"><%= review.created.toDateString() %></span>
                     </div>
                     <div class="text">
                         <form action="/campgrounds/<%= campground.id %>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none" id="<%=review.id%>form">
@@ -82,9 +91,9 @@
                                 <input type="submit" value="Submit" class="btn reviewSubmit" id="<%=review.id%>submit">
                                 </div>
                             </div>
-                            <div class="ui heart rating interactable d-none edit" id="<%=review.id%>editRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+                            <div class="ui star rating interactable d-none edit" id="<%=review.id%>editRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
                         </form>
-                        <div id="<%=review.id%>reviewTextDisplay" class="mb-2">
+                        <div id="<%=review.id%>reviewTextDisplay" class="mb-2 reviewText">
                             <%=review.content%>
                         </div>
                         <div class="ui heart rating" id="<%=review.id%>displayRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
@@ -116,7 +125,7 @@
       </div>
       <div class="modal-body">
       <h1 class=" d-inline lead">Rate:</h3>
-        <div class="ui rating heart interactable" data-rating="0" data-max-rating="5"></div>
+        <div class="ui rating heart interactable" data-rating="1" data-max-rating="5"></div>
         <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
             <input type="text" id="ratingField" name="review[rating]"hidden>
             <textarea name="review[content]" id="reviewContent" cols="30" rows="10" class="form-control mt-3" placeholder="Add Your Review Here"></textarea>
@@ -133,7 +142,10 @@
         async defer></script>
 <script src="/lib/semantic/dist/components/rating.min.js"></script>
 <script src="/lib/semantic/dist/components/modal.min.js"></script>
-<script src="/js/modalLaunch.js"></script>
+<script src="/lib/semantic/dist/components/rail.min.js"></script>
+<script src="/lib/semantic/dist/components/sticky.min.js"></script>
+<script src="/lib/chartist/chartist.min.js"></script>
+<script src="/js/chart.js"></script>
 <script src="/js/ratingInitandEdit.js"></script>
     
 

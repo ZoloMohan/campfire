@@ -50,6 +50,7 @@ input[type='text'], input[type='password'], input[type='email']{
     background-color: rgba(0,0,0,0.0);
     border: none;
     border-bottom: 1px solid gray;
+    transition: border-bottom linear 0.2s;
 }
 
 input[type='text']:focus, input[type='password']:focus, input[type='email']:focus{
@@ -58,8 +59,7 @@ input[type='text']:focus, input[type='password']:focus, input[type='email']:focu
     color: #eaab77;
     outline: none;
     background-color: rgba(0,0,0,0.0);
-    border-bottom: 2px solid #eaab77;
-    transition: border-bottom linear 0.1s;
+    border-bottom: 1px solid #eaab77;    
 }
 
 @-webkit-keyframes autofill {

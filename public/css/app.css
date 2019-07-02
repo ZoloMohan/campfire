@@ -70,6 +70,7 @@ input[type='submit']{
     color: white
 }
 
+
 /* ==============================================================================
     SHOW PAGE
    ============================================================================== */
@@ -130,3 +131,32 @@ input[type='submit']{
 .actions button{
     outline: none;
 }
+
+.reviewText{
+    text-align: justify;
+}
+
+.number{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}
+
+.number-regular{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.ct-series-a .ct-bar {
+    /* Colour of your bars */
+    stroke: #df0202;
+    /* The width of your bars */
+    stroke-width: 1 0px;
+    /* Yes! Dashed bars! */
+    /* stroke-dasharray: 20px; */
+    /* Maybe you like round corners on your bars? */
+    stroke-linecap: round;
+  }
+
+  .ct-grid {
+      display: none;
+  }
