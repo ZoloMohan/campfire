@@ -1,26 +1,52 @@
-<% include ../partials/header %>
-<link rel="stylesheet" href="/css/auth.css">
-<div class="container">
-    <div class="row">
-        <div class="offset-md-5 col-md-6" id="loginFormSection">
-        <div class="text-center mt-5">
-        <h1 class="display-4 text-white"><i class="fas fa-campground"></i> yelpcamp</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>YelpCamp</title>
+        <link rel="stylesheet" href="/lib/bootstrap/css/custom-bootstrap.css">
+        <link rel="stylesheet" href="/lib/semantic/dist/components/icon.min.css">
+        <link rel="stylesheet" href="/lib/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="/lib/fontawesome/css/solid.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Questrial|Raleway:100,200,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+        <link rel="stylesheet" href="/css/auth.css">
+    </head>
+    <body>
+    
+    <div class="center">
+    <div id="loginFormSection">
+        <div class="text-center">
+            <h1 class="display-4 mt-5 text-white"><i class="fas fa-campground mr-2"></i>yelpcamp</h1>
         </div>
-
         <div class="text-center" id="loginForm">
-        <h1 class="text-white mb-4">Log In</h1>
-        <form action="/login" method="POST" class="mx-5">
-            <div class="form-group">
-            <input type="text" class="form-control" name="username" placeholder="Username" required>
-            </div>
-            <div class="input-group">
-            <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
-            </div>
-            <button class="btn px-4 mb-5 mt-4">Submit</button>
-        </form>
-        <a href="/register">New Here? Register</a>
-        </div>
+                <h1 class="text-white ">Log In</h1>
+            <form action="/login" method="POST" class="mx-5">
+                <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+                <div class="input-group-append">
+                    <a class="btn text-white" id="passwordHide"><i class="eye slash icon"></i></a>
+                </div>
+                </div>
+                <input type="submit" class="btn btn-primary text-white px-4 mb-5 mt-4" value="Submit">
+            </form>
+            <a href="">Forgot Password?</a>
+            <p class="d-inline"> || </p>
+            <a href="/register">New Here? Register</a>
     </div>
 </div>
+    
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
 
+<script src="/lib/jQuery.3.1.1.min.js"></script>
+<script src="/js/passwordShowHide.js"></script>
 <% include ../partials/footer %>
