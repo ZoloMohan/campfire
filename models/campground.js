@@ -23,6 +23,13 @@ var campgroundSchema = new mongoose.Schema({
             ref:"Review"
         }
     ],
+    ratingsNumber:{
+        5:{type: Number, default: 0},
+        4:{type: Number, default: 0},
+        3:{type: Number, default: 0},
+        2:{type: Number, default: 0},
+        1:{type: Number, default: 0},
+    },
     created: {type: Date, default: Date.now}
 });
 

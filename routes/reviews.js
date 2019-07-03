@@ -24,6 +24,7 @@ router.post("/", middleware.isLoggedIn,  function(req, res){
                         campground.reviews.push(review._id);
                         ratingSum = ratingSum + review.rating;
                         campground.rating = ratingSum/campground.reviews.length;
+                        campground.ratingsNumber[review.rating] += 1;
                         campground.save();
                         req.user.reviewedCamps.push(campground._id);
                         req.user.save();
@@ -42,12 +43,14 @@ router.put("/:review_id", middleware.isLoggedIn, middleware.checkReviewAuthoriza
         Campground.findById(req.params.id, function(error, campground){
             if(error) console.log(error);
             else{
+                campground.ratingsNumber[review.rating] -= 1;
                 var ratingSum = campground.rating * campground.reviews.length;
                 ratingSum = ratingSum - review.rating;
                 review.content = req.body.review.content;
                 review.rating = req.body.review.rating;
                 review.save();
                 ratingSum = ratingSum + review.rating;
+                campground.ratingsNumber[review.rating] += 1;
                 campground.rating = ratingSum / campground.reviews.length;
                 campground.save();
                 res.redirect("/campgrounds/"+campground._id);
@@ -68,6 +71,7 @@ router.delete("/:review_id",middleware.isLoggedIn, middleware.checkReviewAuthori
                 }
             Review.findById(req.params.review_id, function(error, review){
                 ratingSum = ratingSum - review.rating;
+                campground.ratingsNumber[review.rating] -= 1;
                 if(ratingSum == 0)
                     campground.rating = 0;
                 else
