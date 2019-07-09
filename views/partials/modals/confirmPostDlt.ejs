@@ -1,0 +1,19 @@
+<div class="modal fade" id="confirmPostDelete" tabindex="-1" role="dialog" aria-labelledby="confirmPostDelete" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <p>This Action is irreversible. Are you sure you want to delete?</p>
+            <div class="float-right">
+            <button class="btn btn-secondary px-4 modalBtn" data-dismiss="modal" data-target="confirmPostDelete">
+                Cancel
+            </button>
+            <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
+                <button class="btn btn-danger px-4 ml-1 modalBtn">
+                Sure
+                </button>
+            </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

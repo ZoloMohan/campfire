@@ -1,0 +1,21 @@
+<div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalCloseBtn">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h1 class=" d-inline lead">Rate:</h3>
+        <div class="ui rating heart interactable" data-rating="1" data-max-rating="5"></div>
+        <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
+            <input type="text" id="ratingField" name="review[rating]"hidden>
+            <textarea name="review[content]" id="reviewContent" cols="30" rows="10" class="form-control mt-3" placeholder="Add Your Review Here"></textarea>
+            <input type="submit" value="Submit" class="btn btn-primary float-right mt-3">
+        </form>
+    </div>
+    </div>
+  </div>
+</div>

@@ -12,13 +12,14 @@
     border: none;
     background-color: rgba(0,0,0,0);
     color: #eaab77;
+    outline: none;
 }
 
 #showCampDeleteBtn:hover{
     text-decoration: underline;
 }
 
-.showDeleteBtn{
+.commentActionBtn{
     font-size: 14px;
     border: none;
     background-color: rgba(0,0,0,0);
@@ -26,7 +27,7 @@
     outline: none; 
 }
 
-.showDeleteBtn:hover{
+.commentActionBtn:hover{
     text-decoration: underline;
 }
 
@@ -99,4 +100,8 @@
       font-family: Questrial, sans-serif;
       font-size: 19px;
       font-weight: 100;
+  }
+
+  .modalBtn{
+      border-radius: 50px;
   }

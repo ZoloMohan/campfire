@@ -1,15 +1,12 @@
 <% include ../partials/header %>
     <link rel="stylesheet" href="/lib/semantic/dist/components/rating.min.css">
-    <link rel="stylesheet" href="/lib/semantic/dist/components/icon.min.css">
     <link rel="stylesheet" href="/lib/semantic/dist/components/comment.min.css">
     <link rel="stylesheet" href="/lib/chartist/chartist.min.css">
     <link rel="stylesheet" href="/css/gmap.css">
     <link rel="stylesheet" href="/css/campShow.css">
 </head>
-
 <body>
 <%include  ../partials/navbar%>
-
 
 <header class="banner d-flex justify-content-center align-items-center" style="background-image: url(<%= campground.image %>);">
     <div class="overlay"></div>
@@ -20,8 +17,8 @@
 </header>
 
 <div class="container-fluid mt-5 px-5">
-    <div class="row">
-    <%# MAP SECTION %>
+    <div class="row" id="<%= campground._id %>">
+        <%# MAP SECTION %>
         <div class="col-md-5">
             <div id="map"></div>
         </div>
@@ -71,15 +68,18 @@
                 <h5 class="mb-0">Ratings</h5>
                 <h2 class="display-2 number"><%=campground.rating.toFixed(1)%></h2>
                 <div class="ui rating heart" data-rating="<%=Math.floor(campground.rating)%>" data-max-rating="5"></div>
-                <h6><i class="user icon mr-2 mb-5 number"></i><%=campground.reviews.length%></h2>
+                <h6><i class="fas fa-user mr-2"></i><span id="noOfRatings"><%=campground.reviews.length%></span></h2>
                 <div class="ct-chart mt-2"></div>
             </div>
         </div>
         <div class="offset-md-1 col-md-7">
             <div class="ui comments">
             <h3 class="ui dividing header mt-5">Reviews</h3>
+            <% if(campground.reviews.length == 0){ %>
+                <p class="lead">No Reviews Yet. Be the first one to leave a review!</p>
+            <% } else {%>
             <% campground.reviews.forEach(function(review){ %>
-            <div class="comment">
+            <div class="comment" id="<%=review.id%>">
                 <a class="avatar">
                     <img src="https://www.w3schools.com/howto/img_avatar.png">
                 </a>
@@ -89,78 +89,38 @@
                     <span class="date number-regular"><%= review.created.toDateString() %></span>
                     </div>
                     <div class="text">
-                        <form action="/campgrounds/<%= campground.id %>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none" id="<%=review.id%>form">
+                        <form action="/campgrounds/<%= campground.id %>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none">
                             <div class="input-group my-2">
                                 <input type="text" class="form-control" value="<%=review.content%>" name="review[content]">
-                                <input type="number" id="<%=review.id%>editRatingField" name="review[rating]" hidden>
+                                <input type="number" name="review[rating]" hidden>
                                 <div class="input-group-append">
-                                <input type="submit" value="Submit" class="btn reviewSubmit" id="<%=review.id%>submit">
+                                <input type="submit" value="Submit" class="btn reviewSubmit">
                                 </div>
                             </div>
-                            <div class="ui heart rating interactable d-none edit" id="<%=review.id%>editRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+                            <div class="ui heart rating interactable d-none edit" data-rating="<%=review.rating%>" data-max-rating="5"></div>
                         </form>
-                        <div id="<%=review.id%>reviewTextDisplay" class="mb-2 reviewText">
+                        <div class="mb-2 reviewText">
                             <%=review.content%>
                         </div>
-                        <div class="ui heart rating" id="<%=review.id%>displayRating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+                        <div class="ui heart rating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
                     </div>
                     <% if(currentUser && currentUser.equals(review.author.id)) {%>
                     <div class="actions">
-                        <button class="showDeleteBtn reviewEditBtn" id="<%= review.id%>" onclick="toggleEditForm(this)">Edit</button>
-                        <form action="/campgrounds/<%= campground._id %>/reviews/<%= review.id%>?_method=DELETE" method="POST" class="d-inline">
-                            <button class="showDeleteBtn">Delete</button>
-                        </form>         
+                        <button class="commentActionBtn" id="reviewEditButton" onclick="toggleEditForm(this)">Edit</button>
+                        <button class="commentActionBtn" id="reviewDeleteBtn">Delete</button>        
                     </div>
                     <%}%>
                     </div>
                 </div> 
             <% }) %>
+            <%}%>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Your Review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalCloseBtn">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <h1 class=" d-inline lead">Rate:</h3>
-        <div class="ui rating heart interactable" data-rating="1" data-max-rating="5"></div>
-        <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
-            <input type="text" id="ratingField" name="review[rating]"hidden>
-            <textarea name="review[content]" id="reviewContent" cols="30" rows="10" class="form-control mt-3" placeholder="Add Your Review Here"></textarea>
-            <input type="submit" value="Submit" class="btn btn-primary float-right mt-3">
-        </form>
-    </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="confirmPostDelete" tabindex="-1" role="dialog" aria-labelledby="confirmPostDelete" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-body">
-            <p>This Action is irreversible. Are you sure you want to delete?</p>
-            <div class="float-right">
-            <button class="ui button modalBtn" data-dismiss="modal" data-target="confirmPostDelete">
-                Cancel
-            </button>
-            <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
-                <button class="ui negative button modalBtn">
-                Sure
-                </button>
-            </form>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
+<% include ../partials/modals/addReview %>
+<% include ../partials/modals/confirmPostDlt %>
 
 <div class="d-none">
     <input type="text" value="<%= campground.ratingsNumber[5]%>" id="5">
@@ -175,11 +135,10 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5HBuQQ1a4Uoyr_l7yxJokjnQDO43Nruk&libraries=places&callback=initMap"
         async defer></script>
 <script src="/lib/semantic/dist/components/rating.min.js"></script>
-<script src="/lib/semantic/dist/components/modal.min.js"></script>
-<script src="/lib/semantic/dist/components/rail.min.js"></script>
-<script src="/lib/semantic/dist/components/sticky.min.js"></script>
 <script src="/lib/chartist/chartist.min.js"></script>
 <script src="/js/chart.js"></script>
-<script src="/js/ratingInitandEdit.js"></script>
+<script src="/js/ratingAndEdit.js"></script>
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
+<!--ajax-->
+<script src="/js/ajax/deleteComment.js"></script>
 <% include ../partials/footer %>
