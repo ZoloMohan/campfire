@@ -1,22 +1,21 @@
 body {
-    background-color: #000; 
+    background-color: #000;    
     font-family: Raleway, sans-serif;
 } 
-    
-#loginFormSection{
+
+#formSection{
     height: 100%;
     min-width: 500px;
     width: 40%;
     background-color: rgb(0,0,0,0.7);
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
 }
-
 
 #loginForm{
     margin-top : 15vh;
@@ -49,13 +48,11 @@ input[type='text'], input[type='password'], input[type='email']{
 
 input[type='text']:focus, input[type='password']:focus, input[type='email']:focus{
     box-shadow: none;
-    background-color: rgba(0,0,0,0.0);
     color: #eaab77;
     outline: none;
     background-color: rgba(0,0,0,0.0);
     border-bottom: 1px solid #eaab77;    
 }
-
 
 .slideshow { 
     position: fixed;
@@ -80,7 +77,7 @@ input[type='text']:focus, input[type='password']:focus, input[type='email']:focu
     background-repeat: no-repeat;
     opacity: 0;
     z-index: 0;
-    animation: imageAnimation 50s linear infinite; 
+    animation: imageAnimation 50s linear infinite;  
 }
 
 .slideshow li:nth-child(1) { 
@@ -139,4 +136,9 @@ input[type='text']:focus, input[type='password']:focus, input[type='email']:focu
 input:-webkit-autofill {
     -webkit-animation-name: autofill;
     -webkit-animation-fill-mode: both;
+}
+
+::selection{
+    color: white;
+    background: #f3caa9;
 }

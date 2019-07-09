@@ -1,7 +1,15 @@
 <% include ../partials/header %>
-<%include  ../partials/transparentNav%>
+    <link rel="stylesheet" href="/lib/semantic/dist/components/rating.min.css">
+    <link rel="stylesheet" href="/lib/semantic/dist/components/icon.min.css">
+    <link rel="stylesheet" href="/lib/semantic/dist/components/comment.min.css">
+    <link rel="stylesheet" href="/lib/chartist/chartist.min.css">
+    <link rel="stylesheet" href="/css/gmap.css">
+    <link rel="stylesheet" href="/css/campShow.css">
+</head>
 
-<link rel="stylesheet" href="/css/gmap.css">
+<body>
+<%include  ../partials/navbar%>
+
 
 <header class="banner d-flex justify-content-center align-items-center" style="background-image: url(<%= campground.image %>);">
     <div class="overlay"></div>
@@ -25,9 +33,7 @@
             <p class="d-inline"> | </p>
             <p class=" d-inline"><a href="/campgrounds/<%= campground.id %>/edit" id="showCampDeleteBtn">Edit</a></p>
             <p class="d-inline"> | </p>
-            <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
-                <button id="showCampDeleteBtn">Delete</button>
-            </form>
+            <button id="showCampDeleteBtn" data-toggle="modal" data-target="#confirmPostDelete">Delete</button>
             <% } %>
             <div class="float-right">
                 <p class="lead d-inline">Ratings: </p>
@@ -136,6 +142,26 @@
   </div>
 </div>
 
+<div class="modal fade" id="confirmPostDelete" tabindex="-1" role="dialog" aria-labelledby="confirmPostDelete" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <p>This Action is irreversible. Are you sure you want to delete?</p>
+            <div class="float-right">
+            <button class="ui button modalBtn" data-dismiss="modal" data-target="confirmPostDelete">
+                Cancel
+            </button>
+            <form action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST" class="d-inline">
+                <button class="ui negative button modalBtn">
+                Sure
+                </button>
+            </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
 <div class="d-none">
     <input type="text" value="<%= campground.ratingsNumber[5]%>" id="5">
     <input type="text" value="<%= campground.ratingsNumber[4]%>" id="4">
@@ -155,6 +181,5 @@
 <script src="/lib/chartist/chartist.min.js"></script>
 <script src="/js/chart.js"></script>
 <script src="/js/ratingInitandEdit.js"></script>
-    
-
+<script src="/lib/bootstrap/bootstrap.min.js"></script>
 <% include ../partials/footer %>

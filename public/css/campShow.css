@@ -1,0 +1,102 @@
+#campgroundDesc{
+    text-align: justify;    
+}
+
+#createdOn{
+    color: gray;
+    font-weight: 200;
+}
+
+#showCampDeleteBtn{
+    font-size: 18px;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: #eaab77;
+}
+
+#showCampDeleteBtn:hover{
+    text-decoration: underline;
+}
+
+.showDeleteBtn{
+    font-size: 14px;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: rgb(155, 152, 152);   
+    outline: none; 
+}
+
+.showDeleteBtn:hover{
+    text-decoration: underline;
+}
+
+#gMapLink{
+    font-size: 18px;
+}
+
+#reviewSection{
+    margin-bottom: 150px;
+}
+
+#reviewBtn{
+    color: white;
+    border-radius: 50px;
+}
+
+.reviewSubmit{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #eaab77;
+    border-color: #eaab77;
+    color: white;
+    font-family: Raleway, sans-serif;
+}
+
+#reviewEditSubmitBtn{
+    background-color: #eaab77;
+}
+
+.actions button{
+    outline: none;
+}
+
+.reviewText{
+    text-align: justify;
+}
+
+.number{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}
+
+.number-regular{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.ct-series-a .ct-bar {
+    /* Colour of your bars */
+    stroke: #df0202;
+    /* The width of your bars */
+    stroke-width: 1 0px;
+    /* Yes! Dashed bars! */
+    /* stroke-dasharray: 20px; */
+    /* Maybe you like round corners on your bars? */
+    stroke-linecap: round;
+  }
+
+  .ct-grid {
+      display: none;
+  }
+
+  .ui.button.modalBtn{
+      font-family: Questrial, sans-serif;
+      font-weight: 200;
+      border-radius: 20px;
+  }
+
+  .modal-body p{
+      font-family: Questrial, sans-serif;
+      font-size: 19px;
+      font-weight: 100;
+  }

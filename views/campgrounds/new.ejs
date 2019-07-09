@@ -1,5 +1,7 @@
 <% include ../partials/header %>
 <link rel="stylesheet" href="/css/gmap.css">
+</head>
+<body>
 <div class="row">
 <div class="container">
     <div class="row">
@@ -16,10 +18,10 @@
                 <input type="text" name="location" class="form-control" hidden required>
                 </div> %>
                 <div class="form-group">
-                    <input type="text" name="coordinates[lat]" class="form-control" required hidden>
+                    <input type="text" name="coordinates[lat]" class="form-control" required placeholder="Latitude">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="coordinates[long]" class="form-control" required hidden>
+                    <input type="text" name="coordinates[long]" class="form-control" required placeholder="Longitude">
                 </div>
                 <div class="form-group">
                 <input type="number" name="price" placeholder="Enter Price/Night" step="0.01" min="0.01" class="form-control">
