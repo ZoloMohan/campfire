@@ -12,8 +12,8 @@ var reviewRoutes = require("./routes/reviews"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index")
 
-mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
-// mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@yelpcamp-fyj1g.mongodb.net/test?retryWrites=true&w=majority");
+// mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@yelpcamp-fyj1g.mongodb.net/test?retryWrites=true&w=majority");
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -51,6 +51,6 @@ passport.deserializeUser(User.deserializeUser());
 //  SERVER INIT
 //=============================================================================================================================
 
-app.listen(3000, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("YelpCamp Server started at Port 3000.");
 });
