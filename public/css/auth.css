@@ -70,7 +70,7 @@ input[type='text']:focus, input[type='password']:focus, input[type='email']:focu
     padding: 0;
 }
 
-.slideshow li { 
+.slideshow li{ 
     width: 100%;
     height: 100%;
     position: absolute;
@@ -80,32 +80,54 @@ input[type='text']:focus, input[type='password']:focus, input[type='email']:focu
     background-position: 50% 50%;
     background-repeat: no-repeat;
     opacity: 0;
-    z-index: 0;
-    animation: imageAnimation 50s linear infinite;  
+    z-index: 0;  
 }
 
 .slideshow li:nth-child(1) { 
     background-image: url('https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg');
+    animation: imageAnimationStarter 50s linear infinite;
 }
 .slideshow li:nth-child(2) { 
     background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
+    animation: imageAnimation 50s linear infinite;
     animation-delay: 10s; 
 }
 .slideshow li:nth-child(3) { 
     background-image: url(https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg);
+    animation: imageAnimation 50s linear infinite;
     animation-delay: 20s; 
 }
 .slideshow li:nth-child(4) { 
     background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
+    animation: imageAnimation 50s linear infinite;
     animation-delay: 30s; 
 }
 .slideshow li:nth-child(5) { 
     background-image: url(https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg);
+    animation: imageAnimation 50s linear infinite;
     animation-delay: 40s; 
 }
 .slideshow li:nth-child(6){
     background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
+    animation: imageAnimation 50s linear infinite;
     animation-delay: 50s;
+}
+
+@keyframes imageAnimationStarter{
+    0% { 
+        opacity: 1; 
+        animation-timing-function: ease-in;
+      }
+      10% {
+        opacity: 1;
+        animation-timing-function: ease-out;
+      }
+      20% {
+        opacity: 1
+      }
+      30% {
+        opacity: 0
+      }
 }
 
 @keyframes imageAnimation { 
@@ -145,4 +167,16 @@ input:-webkit-autofill {
 ::selection{
     color: white;
     background: #f3caa9;
+}
+
+@media(max-width: 500px){
+    #formSection{
+        min-width: 350px;
+    }
+}
+
+@media(max-width: 375px){
+    #formSection{
+        min-width: 300px;
+    }
 }
