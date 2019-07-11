@@ -14,6 +14,15 @@ body{
     top: 0;
     right: 0;
     left: 0;
+    transition: background-color ease-out 0.2s;
+}
+
+.navbar-background{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.navbar-toggler{
+    border: none;
 }
 
 .nav-link{
@@ -36,6 +45,7 @@ body{
 }
 
 .banner{
+    transition: min-height linear 0.1s;
     background: url("https://i.ibb.co/gb0Rst2/index.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -73,4 +83,24 @@ input[type='submit']{
 
 .modalBtn{
     border-radius: 50px;
+}
+
+.rotate{
+    transform: rotate(90deg);
+}
+
+.rev-rotate{
+    transform: rotate(-90deg);
+}
+
+@media(max-width: 768px){
+    .nav-link:hover{
+        border-bottom: none;
+    }
+}
+
+@media(max-width: 768px){
+    .banner{
+        min-height: 400px;
+    }
 }

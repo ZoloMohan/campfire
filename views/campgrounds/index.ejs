@@ -6,7 +6,7 @@
 <%include  ../partials/navbar%>
 
 <header class="banner d-flex justify-content-center align-items-center">
-    <div class="header container text-center text-white">
+    <div class="header container text-center text-white mx-2 mx-md-0">
         <h1> Welcome to YelpCamp</h1>
     <p>View our hand-picked campgrounds from all over the world.</p>
     <a href="/campgrounds/new"class=" btn btn-primary headerButton"><i class="fas fa-plus mr-1"></i> New Site</a>
@@ -16,31 +16,27 @@
 <div class="container">
     <div class="row justify-content-center"> 
         <% campgrounds.forEach(function(campground) { %>
-            <div class="col-md-3 col-sm-6">
-                <div class="ui link cards">
-                    <a href="/campgrounds/<%= campground._id %>">
-                        <div class="ui card mt-5">
-                            <div class="image">
-                                <img class="card-img-top" src="<%= campground.image %>">
-                            </div>
-                            <div class="content">
-                                <a class="header"><a href="/campgrounds/<%= campground._id %>"><%= campground.name %></a></a>
-                                <div class="meta">
-                                    $<%=campground.price%>/night
-                                </div>
-                                <div class="description">
-                                    <%= campground.description.substring(0,40);%> ... <a href="/campgrounds/<%= campground._id %>">Read More</a>
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                    <div class="ui rating mini heart" data-rating="<%=Math.floor(campground.rating)%>" data-max-rating="5"></div>
-                                <div class="float-right">
-                                    <i class="fas fa-comment mr-1"></i><%= campground.reviews.length %>
-                                </div>  
-                            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="ui link card mt-5">
+                    <div class="image">
+                        <img class="card-img-top" src="<%= campground.image %>">
+                    </div>
+                    <div class="content">
+                        <a class="header"><a href="/campgrounds/<%= campground._id %>"><%= campground.name %></a></a>
+                        <div class="meta">
+                            $<%=campground.price%>/night
                         </div>
-                    </a>
-                </div> 
+                        <div class="description">
+                            <%= campground.description.substring(0,40);%> ... <a href="/campgrounds/<%= campground._id %>">Read More</a>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui rating mini heart" data-rating="<%=Math.floor(campground.rating)%>" data-max-rating="5"></div>
+                        <div class="float-right">
+                            <i class="fas fa-comment mr-1"></i><%= campground.reviews.length %>
+                        </div>  
+                    </div>
+                    </div>
             </div> 
         <% }) %>
     </div>
@@ -52,4 +48,5 @@
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
 <script src="/lib/semantic/dist/components/rating.min.js"></script>
 <script src="/js/ratingAndEdit.js"></script>
+<script src="/js/navbarBG.js"></script>
 <% include ../partials/footer %>

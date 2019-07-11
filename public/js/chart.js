@@ -14,7 +14,7 @@ new Chartist.Bar('.ct-chart', {
     reverseData: true,
     horizontalBars: true,
     axisY: {
-      offset: 60
+      offset: 10
     }
   });
   

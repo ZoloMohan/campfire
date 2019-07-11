@@ -3,7 +3,6 @@ var reviewDeleteBtn = $('#reviewDeleteBtn');
 reviewDeleteBtn.on('click', function(){
     var campID = reviewDeleteBtn.parent().parent().parent().parent().parent().parent().parent().parent().eq(0).children().eq(0).attr('id'),
         reviewID = reviewDeleteBtn.parent().parent().parent().attr('id');
-
     $.ajax({
         type: 'POST',
         url: '/campgrounds/'+campID+'/reviews/'+reviewID+'?_method=DELETE'
