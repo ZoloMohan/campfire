@@ -25,7 +25,9 @@
         <div class="col-md-7">
         <%# POST OPTIONS %>
         <div class="postoptions mb-4">
+            <%# VIEW IN GOOGLE MAPS %>
             <a href="https://maps.google.com/?q=<%= campground.coordinates.lat %>,<%= campground.coordinates.long %>" id="gMapLink">View in Google Maps</a> 
+            <%# EDIT AND DELETE %>
             <% if(currentUser && currentUser.equals(campground.author.id)) { %>
             <p class="d-inline"> | </p>
             <p class=" d-inline"><a href="/campgrounds/<%= campground.id %>/edit" id="showCampDeleteBtn">Edit</a></p>
@@ -121,6 +123,7 @@
 
 <% include ../partials/modals/addReview %>
 <% include ../partials/modals/confirmPostDlt %>
+<% include ../partials/modals/logout %>
 
 <div class="d-none">
     <input type="text" value="<%= campground.ratingsNumber[5]%>" id="5">

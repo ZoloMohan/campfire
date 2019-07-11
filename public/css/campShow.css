@@ -76,32 +76,11 @@
 }
 
 .ct-series-a .ct-bar {
-    /* Colour of your bars */
     stroke: #df0202;
-    /* The width of your bars */
     stroke-width: 1 0px;
-    /* Yes! Dashed bars! */
-    /* stroke-dasharray: 20px; */
-    /* Maybe you like round corners on your bars? */
     stroke-linecap: round;
   }
 
   .ct-grid {
       display: none;
-  }
-
-  .ui.button.modalBtn{
-      font-family: Questrial, sans-serif;
-      font-weight: 200;
-      border-radius: 20px;
-  }
-
-  .modal-body p{
-      font-family: Questrial, sans-serif;
-      font-size: 19px;
-      font-weight: 100;
-  }
-
-  .modalBtn{
-      border-radius: 50px;
   }
