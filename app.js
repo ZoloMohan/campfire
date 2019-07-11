@@ -13,7 +13,7 @@ var reviewRoutes = require("./routes/reviews"),
     indexRoutes = require("./routes/index")
 
 // mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
-mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@yelpcamp-fyj1g.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect("mmongodb+srv://zolomohan:fortmongoknox@yelpcamp-fyj1g.mongodb.net/test?retryWrites=true&w=majority");
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended:true}));
