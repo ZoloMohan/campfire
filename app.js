@@ -14,7 +14,6 @@ var reviewRoutes = require("./routes/reviews"),
 
 // mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
 mongoose.connect("mmongodb+srv://zolomohan:fortmongoknox@yelpcamp-fyj1g.mongodb.net/test?retryWrites=true&w=majority");
-mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
