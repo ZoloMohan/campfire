@@ -1,6 +1,7 @@
 <% include ../partials/header %>
     <link rel="stylesheet" href="/lib/semantic/dist/components/rating.min.css">
     <link rel="stylesheet" href="/lib/semantic/dist/components/comment.min.css">
+    <link rel="stylesheet" href="/lib/semantic/dist/components/checkbox.min.css">
     <link rel="stylesheet" href="/lib/chartist/chartist.min.css">
     <link rel="stylesheet" href="/css/gmap.css">
     <link rel="stylesheet" href="/css/campShow.css">
@@ -12,7 +13,7 @@
     <div class="overlay"></div>
     <div class="header container text-center text-white"> 
         <h1 class='display-3 d-block'><%= campground.name %></h1>
-    <button class=" btn btn-primary px-4 headerButton mt-3 mt-md-0" id="bookingBtn" data-toggle="modal" data-target="#bookCampModal">Book</button>
+    <a data-toggle="modal" data-target="#bookCampModal" class=" btn btn-primary px-4 headerButton mt-3 mt-md-0" id="bookingBtn">Book</a>
     </div>
 </header>
 
@@ -123,8 +124,9 @@
 </div>
 
 <% include ../partials/modals/addReview %>
-<% include ../partials/modals/confirmPostDlt %>
+<% include ../partials/modals/postDelete %>
 <% include ../partials/modals/logout %>
+<% include ../partials/modals/book %>
 
 <div class="d-none">
     <input type="text" value="<%= campground.ratingsNumber[5]%>" id="5">

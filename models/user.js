@@ -2,10 +2,14 @@ var mongoose = require("mongoose"),
     passportLocalMongoose = require("passport-local-mongoose");
 
 var userSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        first: String,
+        last: String
+    },
     dob: Date,
     email: String,
     username: String,
+    contact: Number,
     password: String,
     createdCamps: [
         {
@@ -23,6 +27,18 @@ var userSchema = new mongoose.Schema({
         {
              type: mongoose.Schema.Types.ObjectId,
              ref: "Review"
+        }
+    ],
+    userBookings:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Booking"
+        }
+    ],
+    hostedBookings:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref: "Booking"
         }
     ],
     created: {type: Date, default: Date.now}

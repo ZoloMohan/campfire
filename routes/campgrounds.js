@@ -2,6 +2,7 @@ var express = require("express"),
     router = express.Router();
    
 var Campground = require("../models/campground"),
+    Booking = require("../models/booking"),
     middleware = require("../middleware");
 
 
@@ -56,6 +57,49 @@ router.get("/:id", function(req, res){
         }
         else res.render("campgrounds/show", {campground: foundCampground}); 
     });
+})
+
+//BookCamp
+router.post("/:id/book", function(req, res){
+    Campground.findById(req.params.id, function(error, campground){
+        if(error) console.log(error);
+        else{
+            Booking.create({
+                campground:{
+                    id: req.params.id,
+                    name: campground.name
+                },
+                hostId: campground.author.id,
+                userId: req.user.id,
+                noOfPeople:{
+                    adults: req.body.adults,
+                    children: req.body.children
+                },
+                noOfNights:req.body.noOfNights,
+                price: (req.body.adults + req.body.children) * campground.price * req.body.noOfNights
+            }, function(error, booking){
+                if(error) console.log(error);
+                else{
+                    User.findById(req.user.id, function(error, user){
+                        if(error) console.log(error);
+                        else{
+                            user.userBookings.push(booking.id);
+                            user.save();
+                            User.findById(campground.author.id, function(error, host){
+                                if(error) console.log(error);
+                                else{
+                                    host.hostedBookings.push(booking.id);
+                                    host.save();
+                                }
+                            })
+                        }
+                    })
+                    res.redirect("/campgrounds/"+req.params.id);
+                }
+                
+            })
+        }
+    })
 })
 
 

@@ -1,7 +1,9 @@
 var express = require("express"),
     router = express.Router();
     passport = require("passport"),
-    User = require("../models/user")
+    User = require("../models/user"),
+    Campground = require("../models/campground"),
+    Booking = require('../models/booking')
 
 //Landing
 router.get("/", function(req, res){
@@ -13,22 +15,41 @@ router.get("/register", function(req, res){
     res.render("user/register");
 })
 
-router.get("/dashboard/:id", function(req, res){
-    User.findById(req.params.id, function(error, user){
-        if(error) console.log(error);
-        else{
-            console.log(user);
-            res.render("user/user", {user: user});
-        }
-    })
+router.get("/dashboard/:username", function(req, res){
+    var userBookings = [];
+    if(req.user.userBookings !== undefined){
+        req.user.userBookings.forEach(function(bookingID){
+            Booking.findById(bookingID, function(error, booking){
+               if(error) console.log(error);
+               else{
+                   userBookings.push(booking);
+                    console.log(userBookings);
+               }
+            })
+        })
+   }
+   var hostBookings = [];
+   if(req.user.hostBookings !== undefined){
+       req.user.hostBookings.forEach(function(bookingID){
+           Booking.findById(bookingID, function(error, booking){
+               if(error) console.log(error);
+               else hostBookings.push(booking);
+           })
+       })
+   }
+   res.render("user/user", {userbookings: userBookings, hostBookings: hostBookings});
 })
 
 //register user
 router.post("/register", function(req, res){
     if(req.body.password == req.body.confirmPassword){
         User.register(new User({
-            name: req.body.name,
+            name: {
+                first: req.body.firstname,
+                last: req.body.lastname
+            },
             username: req.body.username,
+            contact: req.body.contact,
             email: req.body.email
         }), req.body.password, function(error, user){
             if(error){

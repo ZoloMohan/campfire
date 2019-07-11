@@ -1,0 +1,33 @@
+<div class="modal fade" id="bookCampModal" tabindex="-1" role="dialog" aria-labelledby="bookCampModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalCloseBtn">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/campgrounds/<%= campground._id %>/book" method="POST">
+        <div class="form-group">
+            <label for="adults">No. of Adults</label>
+            <input type="number" id="noOfPeople" name="adults" class="form-control" step="1" value='1' min="0">
+        </div>
+        <div class="form-group">
+            <label for="children">No. of Children</label>
+            <input type="number" id="noOfPeople" name="children" placeholder="Age: Below 13" class="form-control" step="1" min="0">
+        </div>
+        <div class="form-group">
+            <label for="noOfPeople">No. of Nights</label>
+            <input type="number" id="noOfnights" name="noOfNights" value='1' placeholder="No. of Nights" class="form-control" step="1">
+        </div>
+        <div class="ui checkbox">
+          <input type="checkbox" name="terms" required>
+          <label>I agree to the Terms and Conditions</label>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary float-right mt-3">
+        </form>
+    </div>
+    </div>
+  </div>
+</div>

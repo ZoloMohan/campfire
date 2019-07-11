@@ -1,5 +1,6 @@
 $('#passwordHide').click(function(){
-    $('.eye.icon').toggleClass('slash');
+    $('.eye').toggleClass('fa-eye-slash');
+    $('.eye').toggleClass('fa-eye');
     if($('#password').attr('type') === 'password')
     $('#password').attr('type', 'text');
     else
