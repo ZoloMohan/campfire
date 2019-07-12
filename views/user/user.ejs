@@ -16,9 +16,6 @@
     <a class="nav-link" href="#">My Campgrounds</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Reviewed Campgrounds</a>
-  </li>
-  <li class="nav-item">
     <a class="nav-link" href="#">My Reviews</a>
   </li>
   <li class="nav-item">
@@ -32,7 +29,15 @@
       <% if(user.userBookings.length > 0) {%>
       <p class="lead">My Bookings</p>
       <% user.userBookings.forEach(function(booking){ %>
-          <li class="list-group-item list-group-item-action"><a href="/campgrounds/<%=booking.campground.id%>"><%= booking.campground.name %></a> <span class="float-right ml-3">PRICE: <%=booking.price%></span> <span class="float-right">STATUS: <%=booking.status.toUpperCase()%></span></li>
+            <li class="list-group-item list-group-item-action">
+              <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
+              <a href="/campgrounds/<%=booking.campground.id%>" class="d-inline-block"><h4><%= booking.campground.name %></h4></a>
+              <div>No. of Adults: <%=booking.noOfPeople.adults%></div>
+              <div>No. of Children: <%=booking.noOfPeople.children%></div>
+              <span>
+                STATUS: <%=booking.status.toUpperCase()%>
+              </span>
+          </li>
       <% })%>
       <% } %>
   </ul>
@@ -40,20 +45,20 @@
       <% if(user.hostedBookings.length > 0) {%>
       <p class="lead">Host Bookings</p>
       <% user.hostedBookings.forEach(function(booking){ %>
-          <% console.log(booking) %>
           <li class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between">
-              <a href="/campgrounds/<%=booking.campground.id%>"><%= booking.campground.name %></a>
-              <span><a href="/user/<%= booking.user.id %>"><%= booking.user.username %> </a></span>
+              <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
+              <a href="/campgrounds/<%=booking.campground.id%>" class="d-inline-block"><h4><%= booking.campground.name %></h4></a>
+              <div>Username: <a href="/user/<%= booking.user.id %>"><%= booking.user.username %> </a></div>
+              <div>No. of Adults: <%=booking.noOfPeople.adults%></div>
+              <div>No. of Children: <%=booking.noOfPeople.children%></div>
               <span>
                 <%if(booking.status === "pending"){%>
-                <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=PUT" method ="POST" class="d-inline p-0 m-0">
-                  <button class="btn btn-link d-inline p-0 m-0 mr-3">Verify</button>
+                <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=PUT" method ="POST" class="d-inline p-0 m-0 float-right">
+                  <button class="btn btn-link d-inline p-0 m-0 mr-3"><h5>Verify</h5></button>
                 </form>
                 <%}%>
                 STATUS: <%=booking.status.toUpperCase()%>
               </span>
-            </div>
           </li>
       <% })%>
       <% } %>

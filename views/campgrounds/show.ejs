@@ -13,7 +13,9 @@
     <div class="overlay"></div>
     <div class="header container text-center text-white"> 
         <h1 class='display-3 d-block'><%= campground.name %></h1>
-    <a data-toggle="modal" data-target="#bookCampModal" class=" btn btn-primary px-4 headerButton mt-3 mt-md-0" id="bookingBtn">Book</a>
+        <% if(currentUser && !currentUser.equals(campground.author.id)) { %>
+            <a data-toggle="modal" data-target="#bookCampModal" class=" btn btn-primary px-4 headerButton mt-3 mt-md-0" id="bookingBtn">Book</a>
+        <%}%>
     </div>
 </header>
 
@@ -54,6 +56,24 @@
                 <%}%>
             </p>
             <p id="createdOn">on <%=campground.created.toDateString()%></p>
+
+            <ul class="nav nav-pills mb-4" id="nav-date">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">13 July</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">14 Jul</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">15 Jul</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">16 Jul</a>
+            </li>
+            </ul>
+
+            <p>No. of Vacancies: <span id="vacancies">0</span></p>
+
             <p class="lead" id="campgroundDesc"> <%=campground.description%></p>
         </div>
     </div>
@@ -72,16 +92,19 @@
         <div class="offset-lg-1 col-lg-7">
         <div class="ui comments">
             <h3 class="ui dividing header mt-3 mb-3 mt-md-5">Reviews</h3>
+            <div class="text-center text-md-left mb-3">
+            <% if(currentUser && !currentUser.equals(campground.author.id)) { %>
+                <% if(currentUser.reviewedCamps.includes(campground._id)){ %>
+                    <a href="#reviewSection" class="btn btn-primary px-4 my-md-0 my-2" id="reviewBtn"> Edit Your Review </a>             
+                <%} else {%>
+                    <a class="btn btn-primary px-4 my-md-0 my-2" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </a>
+                <% } %>
+            <% } %>
+            </div>
+            
             <% if(campground.reviews.length == 0){ %>
                 <p class="lead">No Reviews Yet. Be the first one to leave a review!</p>
-                <div class="text-center text-md-left">
-                <% if(currentUser && currentUser.reviewedCamps.includes(campground._id)){ %>
-                <a href="#reviewSection" class="btn btn-primary px-4 my-md-0 my-2" id="reviewBtn"> Edit Your Review </a>             
-                <%} else {%>
-                <a class="btn btn-primary px-4 my-md-0 my-2" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </a>
-                <% } %>
-                </div>
-            <% } else {%>
+            <% } else {%>           
             <% campground.reviews.forEach(function(review){ %>
             <div class="comment" id="<%=review.id%>">
                 <a class="avatar">
