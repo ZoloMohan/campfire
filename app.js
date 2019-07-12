@@ -51,6 +51,6 @@ passport.deserializeUser(User.deserializeUser());
 //  SERVER INIT
 //=============================================================================================================================
 
-app.listen(3000, function(){
+app.listen(process.env.PORT, process.env.IP , function(){
     console.log("YelpCamp Server started at Port 3000.");
 });
