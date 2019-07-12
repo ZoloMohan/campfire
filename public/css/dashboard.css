@@ -1,0 +1,25 @@
+.nav-tabs .nav-item .active{
+    border-top: 2px solid #eaab77;;
+}
+
+.nav-tabs .nav-item:hover{
+    background: #eaab77;
+}
+
+#reviewCampLink{
+    font-family: Questrial, sans-serif;
+    font-size: 20px;
+    font-weight: 400; 
+    color: black;
+    text-decoration: none;
+}
+
+#reviewCampLink:hover{
+    color: rgb(64, 64, 187);
+}
+
+#pageNav{
+    background-color: white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}

@@ -28,51 +28,8 @@
     text-decoration: underline;
 }
 
-.commentActionBtn{
-    font-size: 14px;
-    border: none;
-    background-color: rgba(0,0,0,0);
-    color: rgb(155, 152, 152);   
-    outline: none; 
-}
-
-.commentActionBtn:hover{
-    text-decoration: underline;
-}
-
 #gMapLink{
     font-size: 18px;
-}
-
-#reviewSection{
-    margin-bottom: 150px;
-}
-
-#reviewBtn{
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.reviewSubmit{
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: #eaab77;
-    border-color: #eaab77;
-    color: white;
-    font-family: Raleway, sans-serif;
-}
-
-#reviewEditSubmitBtn{
-    background-color: #eaab77;
-}
-
-.actions button{
-    outline: none;
-}
-
-.reviewText{
-    text-align: justify;
 }
 
 .number{
@@ -85,16 +42,4 @@
     font-weight: 400;
 }
 
-.ct-chart{
-    transition: margin linear 0.2s;
-}
 
-.ct-series-a .ct-bar {
-    stroke: #df0202;
-    stroke-width: 1 0px;
-    stroke-linecap: round;
-  }
-
-  .ct-grid {
-      display: none;
-  }

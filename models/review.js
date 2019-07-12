@@ -8,9 +8,12 @@ var reviewSchema = mongoose.Schema({
         },
         username: String
     },
-    campground_id:{
+    campground:{
+        id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Campground"
+        },
+        name: String
     },
     content: String,
     rating: Number,

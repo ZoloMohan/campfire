@@ -16,10 +16,11 @@ router.get("/register", function(req, res){
 })
 
 router.get("/user/:id", function(req, res){
-    User.findById(req.params.id).populate("userBookings").populate("hostedBookings").exec(function(error, user){
+    User.findById(req.params.id).populate("userBookings").populate("hostedBookings").populate("createdCamps").populate("reviews").exec(function(error, user){
         if(error) console.log(error);
-        console.log(user);
-        res.render("user/user", {user: user});
+        else{
+            res.render("user/user", {user: user});
+        }
     })
 })
 

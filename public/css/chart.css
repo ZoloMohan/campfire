@@ -1,0 +1,13 @@
+.ct-chart{
+    transition: margin linear 0.2s;
+}
+
+.ct-series-a .ct-bar {
+    stroke: #df0202;
+    stroke-width: 1 0px;
+    stroke-linecap: round;
+  }
+
+  .ct-grid {
+      display: none;
+  }

@@ -16,7 +16,8 @@ router.post("/", middleware.isLoggedIn,  function(req, res){
                     User.findById(req.user.id, function(error, user){
                         user.reviews.push(review._id);
                         user.save();
-                        review.campground_id = campground._id;
+                        review.campground.id = campground._id;
+                        review.campground.name = campground.name;
                         review.author.id = req.user.id;
                         review.author.username = req.user.username;
                         review.save();
@@ -81,17 +82,9 @@ router.delete("/:review_id",middleware.isLoggedIn, middleware.checkReviewAuthori
                     if(error) console.log(error);
                     else{
                         //Remove from Reviewed Camps
-                        for(var j = 0; j < user.reviewedCamps.length;j++)
-                            if(user.reviewedCamps[j].equals(campground._id)){
-                                user.reviewedCamps.splice(j,1);
-                                break;
-                            }
+                        user.reviewedCamps.splice(user.reviewedCamps.indexOf(campground._id),1);                                                    
                         //Remove from User Reviews List
-                        for(var j = 0; j < user.reviews.length; j++)
-                            if(user.reviews[j].equals(req.params.review_id)){
-                                user.reviews.splice(j, 1);
-                                break;
-                            }
+                        user.reviews.splice(user.reviews.indexOf(req.params.review_id), 1);
                         user.save();
                         //Actual Delete Code
                         Review.findByIdAndRemove(req.params.review_id, function(error){

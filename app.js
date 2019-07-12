@@ -13,7 +13,7 @@ var reviewRoutes = require("./routes/reviews"),
     indexRoutes = require("./routes/index"),
     bookingRoutes = require("./routes/booking");
 
-mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
+mongoose.connect("mongodb://localhost/campfire", {useNewUrlParser:true, useFindAndModify: false});
 // mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser:true, useFindAndModify: false});
 
 

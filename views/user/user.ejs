@@ -1,4 +1,13 @@
 <% include ../partials/header %>
+  <link rel="stylesheet" href="/lib/semantic/dist/components/card.min.css">
+  <link rel="stylesheet" href="/lib/semantic/dist/components/comment.min.css">
+  <link rel="stylesheet" href="/lib/semantic/dist/components/rating.min.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/review.css">
+<style>
+  
+</style>
+
 </head>
 <body>
 
@@ -10,40 +19,128 @@
         <p><%= user.email%></p>
     </div>
 </header>
-<div class="container-fluid mt-4">
+
+<div class="container-fluid sticky-top mt-4" id="pageNav">
     <ul class="nav nav-tabs justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link" href="#">My Campgrounds</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">My Reviews</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Bookings</a>
-  </li>
-</ul>
+    <li class="nav-item">
+      <a class="nav-link active" href="#" id="campgroundsView">My Campgrounds</a>
+    </li> 
+    <li class="nav-item">
+      <a class="nav-link" href="#" id="reviewsView">My Reviews</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" id="bookingsView">Bookings</a>
+    </li>
+  </ul>
 </div>
 
-<div class="container mt-5">
-  <ul class="list-group mt-3 mx-5">
+<div class="container mb-5" id="campgrounds">
+  <% if(currentUser && user.createdCamps.length > 0){%>
+    <div class="row justify-content-center"> 
+        <% user.createdCamps.forEach(function(campground) { %>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="ui link card mt-5">
+                    <div class="image">
+                        <img class="card-img-top" src="<%= campground.image %>">
+                    </div>
+                    <div class="content">
+                        <a class="header"><a href="/campgrounds/<%= campground._id %>"><%= campground.name %></a></a>
+                        <div class="meta">
+                            $<%=campground.price%>/night
+                        </div>
+                        <div class="description">
+                            <%= campground.description.substring(0,40);%> ... <a href="/campgrounds/<%= campground._id %>">Read More</a>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui rating mini heart" data-rating="<%=Math.floor(campground.rating)%>" data-max-rating="5"></div>
+                        <div class="float-right">
+                            <i class="fas fa-comment mr-1"></i><%= campground.reviews.length %>
+                        </div>  
+                    </div>
+                    </div>
+            </div> 
+        <% }) %>
+    </div>
+    <% } else {%>
+    <div class="text-center mt-5">
+      <p class="lead">No Camps Hosted Yet!!</p>
+    </div>
+    <% } %>
+
+</div>
+
+<div class="container justify-content-center d-none" id="reviews">
+<div class="row">
+  <% if(currentUser && user.reviews.length > 0){%>
+  <div class="col-12 col-md-6 offset-md-3 mb-5">
+  <div class="ui comments mt-5">
+  <% user.reviews.forEach(function(review){ %>
+    <div class="comment" id="<%=review.id%>">
+      <a class="avatar">
+      <img src="https://www.w3schools.com/howto/img_avatar.png">
+      </a>
+      <div class="content">
+        <a class="author"><a href="/campgrounds/<%=review.campground.id%>" id="reviewCampLink"><%= review.campground.name %></a></a>    
+        <div class="metadata">
+          <span class="date number-regular"><%= review.created.toDateString() %></span>
+        </div>
+        <div class="text">
+          <form action="/campgrounds/<%=review.campground_id%>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none">
+            <div class="input-group my-2">
+            <input type="text" class="form-control" value="<%=review.content%>" name="review[content]">
+            <input type="number" name="review[rating]" hidden>
+            <div class="input-group-append">
+            <input type="submit" value="Submit" class="btn reviewSubmit">
+            </div>
+            </div>
+            <div class="ui heart rating interactable d-none edit" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+          </form>
+          <div class="mb-2 reviewText"><%=review.content%></div>
+          <div class="ui heart rating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+        </div>
+        <% if(currentUser && currentUser.equals(review.author.id)) {%>
+        <div class="actions">
+          <button class="commentActionBtn" id="reviewEditButton" onclick="toggleEditForm(this)">Edit</button>
+          <button class="commentActionBtn" id="reviewDeleteBtn">Delete</button>        
+        </div>
+        <%}%>
+      </div>
+    </div> 
+    <% }) %>
+    </div>
+  <%} else {%>
+  <div class="text-center mt-5">
+    <p class="lead">No Reviews Yet!</p>
+  </div>
+  <% }%>
+  </div>
+  </div>
+</div>
+
+<div class="container mt-5 d-none" id="bookings">
+  <% if(currentUser && (user.userBookings.length > 0 || user.hostedBookings.length > 0)){%>
+    <ul class="list-group mt-3 mx-md-5">
       <% if(user.userBookings.length > 0) {%>
-      <p class="lead">My Bookings</p>
+      <h4 class="mb-3">My Bookings</h4>
       <% user.userBookings.forEach(function(booking){ %>
             <li class="list-group-item list-group-item-action">
               <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
               <a href="/campgrounds/<%=booking.campground.id%>" class="d-inline-block"><h4><%= booking.campground.name %></h4></a>
               <div>No. of Adults: <%=booking.noOfPeople.adults%></div>
               <div>No. of Children: <%=booking.noOfPeople.children%></div>
+              <button class="btn btn-link d-inline p-0 m-0 mr-3 float-right" data-toggle="modal" data-target="#bookingCancel"><h5>Cancel</h5></button>
               <span>
                 STATUS: <%=booking.status.toUpperCase()%>
               </span>
           </li>
+          <% include ../partials/modals/bookingCancel %>
       <% })%>
       <% } %>
   </ul>
   <ul class="list-group mt-3 mx-5 mb-5">
       <% if(user.hostedBookings.length > 0) {%>
-      <p class="lead">Host Bookings</p>
+      <h4 class="mt-2 mb-3">Host Bookings</h4>
       <% user.hostedBookings.forEach(function(booking){ %>
           <li class="list-group-item list-group-item-action">
               <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
@@ -63,15 +160,21 @@
       <% })%>
       <% } %>
   </ul>
-
+  <% } else { %>
+    <div class="text-center">
+      <p class="lead">No Bookings Yet!</p>
+    </div>
+  <% } %>
 </div>
 
 <% include ../partials/modals/logout %>
+
 
 <script src="/lib/jQuery.3.1.1.min.js"></script>
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
 <script src="/lib/semantic/dist/components/rating.min.js"></script>
 <script src="/js/ratingAndEdit.js"></script>
+<script src="/js/ajax/deleteComment.js"></script>
 <script src="/js/navbarBG.js"></script>
 <script src="/js/dashNav.js"></script>
 

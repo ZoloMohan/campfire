@@ -1,0 +1,19 @@
+<div class="modal fade" id="bookingCancel" tabindex="-1" role="dialog" aria-labelledby="bookingCancel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <p>Are you sure you want to Cancel your Booking?</p>
+            <div class="float-right">
+            <button class="btn btn-secondary px-4 modalBtn" data-dismiss="modal" data-target="bookingCancel">
+                Cancel
+            </button>
+            <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=DELETE" method ="POST" class="d-inline p-0 m-0 float-right">
+                <button class="btn btn-danger ml-2 px-4 modalBtn">
+                Yes
+                </button>
+            </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
