@@ -10,10 +10,11 @@ var express       = require("express"),
 
 var reviewRoutes = require("./routes/reviews"),
     campgroundRoutes = require("./routes/campgrounds"),
-    indexRoutes = require("./routes/index")
+    indexRoutes = require("./routes/index"),
+    bookingRoutes = require("./routes/booking");
 
-// mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
-mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser:true, useFindAndModify: false});
+mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser:true, useFindAndModify: false});
+// mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser:true, useFindAndModify: false});
 
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -39,6 +40,7 @@ app.use(function(req, res, next){
 })
 
 app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds", bookingRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use(indexRoutes);
 
@@ -51,6 +53,6 @@ passport.deserializeUser(User.deserializeUser());
 //  SERVER INIT
 //=============================================================================================================================
 
-app.listen(process.env.PORT, process.env.IP , function(){
+app.listen(3000 , function(){
     console.log("YelpCamp Server started at Port 3000.");
 });

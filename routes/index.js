@@ -15,29 +15,12 @@ router.get("/register", function(req, res){
     res.render("user/register");
 })
 
-router.get("/dashboard/:username", function(req, res){
-    var userBookings = [];
-    if(req.user.userBookings !== undefined){
-        req.user.userBookings.forEach(function(bookingID){
-            Booking.findById(bookingID, function(error, booking){
-               if(error) console.log(error);
-               else{
-                   userBookings.push(booking);
-                    console.log(userBookings);
-               }
-            })
-        })
-   }
-   var hostBookings = [];
-   if(req.user.hostBookings !== undefined){
-       req.user.hostBookings.forEach(function(bookingID){
-           Booking.findById(bookingID, function(error, booking){
-               if(error) console.log(error);
-               else hostBookings.push(booking);
-           })
-       })
-   }
-   res.render("user/user", {userbookings: userBookings, hostBookings: hostBookings});
+router.get("/user/:id", function(req, res){
+    User.findById(req.params.id).populate("userBookings").populate("hostedBookings").exec(function(error, user){
+        if(error) console.log(error);
+        console.log(user);
+        res.render("user/user", {user: user});
+    })
 })
 
 //register user

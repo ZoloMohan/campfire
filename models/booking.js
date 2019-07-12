@@ -12,9 +12,12 @@ var bookingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    userId: {
+    user:{ 
+        id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
+        },
+        username: String
     },
     noOfPeople: {
         adults: {type: Number, default: 0},

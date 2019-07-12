@@ -6,8 +6,8 @@
 
 <header class="banner d-flex justify-content-center align-items-center">
     <div class="header container text-center text-white mx-2 mx-md-0">
-        <h1 class='display-4'><%=currentUser.name.first + " " + currentUser.name.last%></h1>
-        <p><%= currentUser.email%></p>
+        <h1 class='display-4'><%=user.name.first + " " + user.name.last%></h1>
+        <p><%= user.email%></p>
     </div>
 </header>
 <div class="container-fluid mt-4">
@@ -25,21 +25,41 @@
     <a class="nav-link active" href="#">Bookings</a>
   </li>
 </ul>
-<p class="lead">My Booings</p>
-<ul class="list-group mt-5 mx-5">
-    <% userbookings.forEach(function(booking){ %>
-        <li class="list-group-item list-group-item-action"><a href="/campgrounds/<%=booking.campground.id%>"><%= booking.campground.name %></a> <span class="float-right ml-3">PRICE: <%=booking.price%></span> <span class="float-right">STATUS: <%=booking.status.toUpperCase()%></span></li>
-    <% })%>
-</ul>
-
-<p class="lead">Host Bookings</p>
-<ul class="list-group mt-5 mx-5">
-    <% hostBookings.forEach(function(booking){ %>
-        <li class="list-group-item list-group-item-action"><a href="/campgrounds/<%=booking.campground.id%>"><%= booking.campground.name %></a> <span class="float-right ml-3">PRICE: <%=booking.price%></span> <span class="float-right">STATUS: <%=booking.status.toUpperCase()%></span></li>
-    <% })%>
-</ul>
 </div>
 
+<div class="container mt-5">
+  <ul class="list-group mt-3 mx-5">
+      <% if(user.userBookings.length > 0) {%>
+      <p class="lead">My Bookings</p>
+      <% user.userBookings.forEach(function(booking){ %>
+          <li class="list-group-item list-group-item-action"><a href="/campgrounds/<%=booking.campground.id%>"><%= booking.campground.name %></a> <span class="float-right ml-3">PRICE: <%=booking.price%></span> <span class="float-right">STATUS: <%=booking.status.toUpperCase()%></span></li>
+      <% })%>
+      <% } %>
+  </ul>
+  <ul class="list-group mt-3 mx-5 mb-5">
+      <% if(user.hostedBookings.length > 0) {%>
+      <p class="lead">Host Bookings</p>
+      <% user.hostedBookings.forEach(function(booking){ %>
+          <% console.log(booking) %>
+          <li class="list-group-item list-group-item-action">
+            <div class="d-flex justify-content-between">
+              <a href="/campgrounds/<%=booking.campground.id%>"><%= booking.campground.name %></a>
+              <span><a href="/user/<%= booking.user.id %>"><%= booking.user.username %> </a></span>
+              <span>
+                <%if(booking.status === "pending"){%>
+                <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=PUT" method ="POST" class="d-inline p-0 m-0">
+                  <button class="btn btn-link d-inline p-0 m-0 mr-3">Verify</button>
+                </form>
+                <%}%>
+                STATUS: <%=booking.status.toUpperCase()%>
+              </span>
+            </div>
+          </li>
+      <% })%>
+      <% } %>
+  </ul>
+
+</div>
 
 <% include ../partials/modals/logout %>
 

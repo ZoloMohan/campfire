@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav ml-auto">
             <% if(currentUser){ %>
-                <li ><a href="/dashboard/<%=currentUser.username%>" class=" nav-item nav-link"><%= currentUser.username%></a></li>
+                <li ><a href="/user/<%=currentUser.id%>" class=" nav-item nav-link"><%= currentUser.username%></a></li>
                 <li><a data-toggle="modal" data-target="#confirmLogout" class="nav-item nav-link">logout</a></li>
             <% } else { %>
                 <li><a href="/login" class="nav-item nav-link">login</a></li>
