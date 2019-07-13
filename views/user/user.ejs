@@ -2,6 +2,7 @@
   <link rel="stylesheet" href="/lib/semantic/dist/components/card.min.css">
   <link rel="stylesheet" href="/lib/semantic/dist/components/comment.min.css">
   <link rel="stylesheet" href="/lib/semantic/dist/components/rating.min.css">
+  <link rel="stylesheet" href="/lib/semantic/dist/components/item.min.css">
   <link rel="stylesheet" href="/css/dashboard.css">
   <link rel="stylesheet" href="/css/review.css">
 <style>
@@ -20,16 +21,16 @@
     </div>
 </header>
 
-<div class="container-fluid sticky-top mt-4" id="pageNav">
+<div class="container-fluid sticky-top mt-3" id="pageNav">
     <ul class="nav nav-tabs justify-content-center">
     <li class="nav-item">
-      <a class="nav-link active" href="#" id="campgroundsView">My Campgrounds</a>
+      <a class="nav-link active" href="#campgrounds" id="campgroundsView">My Campgrounds</a>
     </li> 
     <li class="nav-item">
-      <a class="nav-link" href="#" id="reviewsView">My Reviews</a>
+      <a class="nav-link" href="#reviews" id="reviewsView">My Reviews</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" id="bookingsView">Bookings</a>
+      <a class="nav-link" href="#bookings" id="bookingsView">Bookings</a>
     </li>
   </ul>
 </div>
@@ -70,96 +71,123 @@
 
 </div>
 
-<div class="container justify-content-center d-none" id="reviews">
-<div class="row">
-  <% if(currentUser && user.reviews.length > 0){%>
-  <div class="col-12 col-md-6 offset-md-3 mb-5">
-  <div class="ui comments mt-5">
-  <% user.reviews.forEach(function(review){ %>
-    <div class="comment" id="<%=review.id%>">
-      <a class="avatar">
-      <img src="https://www.w3schools.com/howto/img_avatar.png">
-      </a>
-      <div class="content">
-        <a class="author"><a href="/campgrounds/<%=review.campground.id%>" id="reviewCampLink"><%= review.campground.name %></a></a>    
-        <div class="metadata">
-          <span class="date number-regular"><%= review.created.toDateString() %></span>
+<div class="container d-none my-5" id="reviews">
+  <div class="row">
+    <% if(currentUser && user.reviews.length > 0){%>
+    <div class="col-12 col-md-6 offset-md-3 mb-5">
+    <div class="ui comments mt-5">
+    <% user.reviews.forEach(function(review){ %>
+      <div class="comment" id="<%=review.id%>">
+        <a class="avatar">
+        <img src="https://www.w3schools.com/howto/img_avatar.png">
+        </a>
+        <div class="content">
+          <a class="author"><a href="/campgrounds/<%=review.campground.id%>" id="reviewCampLink"><%= review.campground.name %></a></a>    
+          <div class="metadata">
+            <span class="date number-regular"><%= review.created.toDateString() %></span>
+          </div>
+          <div class="text">
+            <form action="/campgrounds/<%=review.campground_id%>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none">
+              <div class="input-group my-2">
+              <input type="text" class="form-control" value="<%=review.content%>" name="review[content]">
+              <input type="number" name="review[rating]" hidden>
+              <div class="input-group-append">
+              <input type="submit" value="Submit" class="btn reviewSubmit">
+              </div>
+              </div>
+              <div class="ui heart rating interactable d-none edit" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+            </form>
+            <div class="mb-2 reviewText"><%=review.content%></div>
+            <div class="ui heart rating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
+          </div>
+          <% if(currentUser && currentUser.equals(review.author.id)) {%>
+          <div class="actions">
+            <button class="commentActionBtn" id="reviewEditButton" onclick="toggleEditForm(this)">Edit</button>
+            <button class="commentActionBtn" id="reviewDeleteBtn">Delete</button>        
+          </div>
+          <%}%>
         </div>
-        <div class="text">
-          <form action="/campgrounds/<%=review.campground_id%>/reviews/<%= review._id %>?_method=PUT" method="POST" class="d-none">
-            <div class="input-group my-2">
-            <input type="text" class="form-control" value="<%=review.content%>" name="review[content]">
-            <input type="number" name="review[rating]" hidden>
-            <div class="input-group-append">
-            <input type="submit" value="Submit" class="btn reviewSubmit">
-            </div>
-            </div>
-            <div class="ui heart rating interactable d-none edit" data-rating="<%=review.rating%>" data-max-rating="5"></div>
-          </form>
-          <div class="mb-2 reviewText"><%=review.content%></div>
-          <div class="ui heart rating" data-rating="<%=review.rating%>" data-max-rating="5"></div>
-        </div>
-        <% if(currentUser && currentUser.equals(review.author.id)) {%>
-        <div class="actions">
-          <button class="commentActionBtn" id="reviewEditButton" onclick="toggleEditForm(this)">Edit</button>
-          <button class="commentActionBtn" id="reviewDeleteBtn">Delete</button>        
-        </div>
-        <%}%>
+      </div> 
+      <% }) %>
       </div>
-    </div> 
-    <% }) %>
+    <%} else {%>
+      <div class='col-12 text-center'>
+        <p class="lead">No Reviews Yet!</p>
+      </div>
     </div>
-  <%} else {%>
-  <div class="text-center mt-5">
-    <p class="lead">No Reviews Yet!</p>
-  </div>
-  <% }%>
-  </div>
+    <% }%>
   </div>
 </div>
 
-<div class="container mt-5 d-none" id="bookings">
+<div class="container my-5  d-none" id="bookings">
   <% if(currentUser && (user.userBookings.length > 0 || user.hostedBookings.length > 0)){%>
-    <ul class="list-group mt-3 mx-md-5">
       <% if(user.userBookings.length > 0) {%>
       <h4 class="mb-3">My Bookings</h4>
+      <ul class="ui items">
       <% user.userBookings.forEach(function(booking){ %>
-            <li class="list-group-item list-group-item-action">
-              <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
-              <a href="/campgrounds/<%=booking.campground.id%>" class="d-inline-block"><h4><%= booking.campground.name %></h4></a>
-              <div>No. of Adults: <%=booking.noOfPeople.adults%></div>
-              <div>No. of Children: <%=booking.noOfPeople.children%></div>
-              <button class="btn btn-link d-inline p-0 m-0 mr-3 float-right" data-toggle="modal" data-target="#bookingCancel"><h5>Cancel</h5></button>
-              <span>
-                STATUS: <%=booking.status.toUpperCase()%>
-              </span>
-          </li>
+              <li class="item">
+                <div class="image">
+                  <img src="<%= booking.campground.image %>" alt="Campground Image">
+                </div>
+                <div class="content">
+                   <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
+                   <div class="link">
+                    <a href="/campgrounds/<%=booking.campground.id%>" class="header"><%= booking.campground.name %></a>
+                   </div>
+                  <div class="meta">
+                     <span>
+                      STATUS: <%=booking.status.toUpperCase()%>
+                    </span>
+                  </div>
+                  <div class="description">
+                     <button class="btn btn-link d-inline p-0 m-0 mr-3 float-right" data-toggle="modal" data-target="#bookingCancel"><h5>Cancel</h5></button>
+                     <div>No. of People: <%=booking.noOfPeople.adults + booking.noOfPeople.children%></div>
+                  </div>
+                  <div class="extra">
+                  </div>
+                </div>
+              </li>
           <% include ../partials/modals/bookingCancel %>
+          <hr>
       <% })%>
+      </ul>
       <% } %>
-  </ul>
-  <ul class="list-group mt-3 mx-5 mb-5">
+
       <% if(user.hostedBookings.length > 0) {%>
       <h4 class="mt-2 mb-3">Host Bookings</h4>
+      <ul class="ui items">
       <% user.hostedBookings.forEach(function(booking){ %>
-          <li class="list-group-item list-group-item-action">
-              <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
-              <a href="/campgrounds/<%=booking.campground.id%>" class="d-inline-block"><h4><%= booking.campground.name %></h4></a>
-              <div>Username: <a href="/user/<%= booking.user.id %>"><%= booking.user.username %> </a></div>
-              <div>No. of Adults: <%=booking.noOfPeople.adults%></div>
-              <div>No. of Children: <%=booking.noOfPeople.children%></div>
-              <span>
-                <%if(booking.status === "pending"){%>
-                <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=PUT" method ="POST" class="d-inline p-0 m-0 float-right">
-                  <button class="btn btn-link d-inline p-0 m-0 mr-3"><h5>Verify</h5></button>
-                </form>
-                <%}%>
-                STATUS: <%=booking.status.toUpperCase()%>
-              </span>
-          </li>
+          <li class="item">
+             <div class="image">
+                  <img src="<%= booking.campground.image %>" alt="Campground Image">
+              </div>
+             <div class="content">
+                   <span class="float-right pt-1 pr-3"><h4>$<%= booking.price%></h4></span>
+                   <div class="link">
+                    <a href="/campgrounds/<%=booking.campground.id%>" class="header"><%= booking.campground.name %></a>
+                   </div>
+                  <div class="meta">
+                     <span>
+                      STATUS: <%=booking.status.toUpperCase()%>
+                    </span>
+                  </div>
+                  <div class="description">
+                    <div>Username: <a href="/user/<%= booking.user.id %>"><%= booking.user.username %> </a></div>
+                    <span>
+                      <%if(booking.status === "pending"){%>
+                      <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=PUT" method ="POST" class="d-inline p-0 m-0 float-right">
+                        <button class="btn btn-link d-inline p-0 m-0 mr-3"><h5>Verify</h5></button>
+                      </form>
+                      <%}%>
+                    </span>
+                    <div>No. of People: <%=booking.noOfPeople.adults + booking.noOfPeople.children%></div>
+                  
+                  </div>
+                </li>
+                <hr>
       <% })%>
       <% } %>
-  </ul>
+    </ul>
   <% } else { %>
     <div class="text-center">
       <p class="lead">No Bookings Yet!</p>
@@ -177,5 +205,4 @@
 <script src="/js/ajax/deleteComment.js"></script>
 <script src="/js/navbarBG.js"></script>
 <script src="/js/dashNav.js"></script>
-
 <%include ../partials/footer%>

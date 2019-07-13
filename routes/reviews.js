@@ -66,34 +66,31 @@ router.delete("/:review_id",middleware.isLoggedIn, middleware.checkReviewAuthori
         else{
             var ratingSum = campground.rating * campground.reviews.length;
             //To Delete from Campgrounds Review_id Array
-            for(var i = 0; i < campground.reviews.length; i++)
-                if(campground.reviews[i]._id.equals(req.params.review_id)){
-                    campground.reviews.splice(i,1);
-                }
+            campground.reviews.splice(campground.reviews.indexOf(req.params.review_id),1);
             Review.findById(req.params.review_id, function(error, review){
-                ratingSum = ratingSum - review.rating;
-                campground.ratingsNumber[review.rating] -= 1;
-                if(ratingSum == 0)
-                    campground.rating = 0;
-                else
-                    campground.rating = ratingSum/campground.reviews.length;
-                campground.save();
-                User.findById(req.user.id, function(error, user){
-                    if(error) console.log(error);
-                    else{
-                        //Remove from Reviewed Camps
-                        user.reviewedCamps.splice(user.reviewedCamps.indexOf(campground._id),1);                                                    
-                        //Remove from User Reviews List
-                        user.reviews.splice(user.reviews.indexOf(req.params.review_id), 1);
-                        user.save();
-                        //Actual Delete Code
-                        Review.findByIdAndRemove(req.params.review_id, function(error){
-                            if(error) console.log(error);
-                            req.flash("success", "review Deleted");
-                            res.redirect("/campgrounds/"+req.params.id);
-                        });
-                    }
-                })
+                if(error) console.log(error);
+                else{
+                    ratingSum = ratingSum - review.rating;
+                    campground.ratingsNumber[review.rating] -= 1;
+                    if(ratingSum == 0)
+                        campground.rating = 0;
+                    else
+                        campground.rating = ratingSum/campground.reviews.length;
+                    campground.save();
+                    User.findById(req.user.id, function(error, user){
+                        if(error) console.log(error);
+                        else{
+                            user.reviewedCamps.splice(user.reviewedCamps.indexOf(campground._id),1);                                                    
+                            user.reviews.splice(user.reviews.indexOf(req.params.review_id), 1);
+                            user.save();
+                            Review.findByIdAndRemove(req.params.review_id, function(error){
+                                if(error) console.log(error);
+                                req.flash("success", "review Deleted");
+                                res.redirect("/campgrounds/"+req.params.id);
+                            });
+                        }
+                    })
+                }    
             })
         }
     });  

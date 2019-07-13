@@ -3,8 +3,8 @@
 }
 
 .nav-tabs .nav-item:hover{
-    background: #eaab77;
-}
+    border-bottom: none;
+}   
 
 #reviewCampLink{
     font-family: Questrial, sans-serif;
@@ -20,6 +20,46 @@
 
 #pageNav{
     background-color: white;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.link a{
+    font-family: Questrial, sans-serif;
+    font-size: 20px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.items{
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid rgba(184, 183, 183, 0.363);
+}
+
+hr:last-child{
+    display: none;
+}
+
+div.image img{
+    height: inherit;
+}
+
+ul.ui.items {
+    padding-bottom: 0;
+}
+
+li.item .image img{
+    height: inherit;
+}
+
+#pageNav .nav-link{
+    transition: border 0.2s linear;
+    border-bottom: none;
+}
+
+#pageNav .nav-link:hover{
+    border-bottom: none;
 }

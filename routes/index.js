@@ -3,7 +3,8 @@ var express = require("express"),
     passport = require("passport"),
     User = require("../models/user"),
     Campground = require("../models/campground"),
-    Booking = require('../models/booking')
+    Booking = require('../models/booking'),
+    middleware = require('../middleware');
 
 //Landing
 router.get("/", function(req, res){
@@ -15,12 +16,23 @@ router.get("/register", function(req, res){
     res.render("user/register");
 })
 
-router.get("/user/:id", function(req, res){
-    User.findById(req.params.id).populate("userBookings").populate("hostedBookings").populate("createdCamps").populate("reviews").exec(function(error, user){
-        if(error) console.log(error);
-        else{
-            res.render("user/user", {user: user});
+router.get("/user/:id",middleware.isLoggedIn ,function(req, res){
+    User.findById(req.params.id).populate({
+        path: "userBookings",
+        populate:{
+            path: "campground",
+            model: 'Campground'
         }
+    }).populate({
+        path: "hostedBookings",
+        populate:{
+            path: "campground",
+            model: 'Campground'
+        }
+    }).populate("createdCamps").populate("reviews").exec(function(error, user){
+        if(error) console.log(error);
+        else
+            res.render("user/user", {user: user});
     })
 })
 

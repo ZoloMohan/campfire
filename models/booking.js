@@ -2,11 +2,8 @@ var mongoose = require('mongoose');
 
 var bookingSchema = new mongoose.Schema({
     campground:{
-        id:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Campground"
-        },
-        name: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Campground"
     },
     hostId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,8 +11,8 @@ var bookingSchema = new mongoose.Schema({
     },
     user:{ 
         id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         },
         username: String
     },

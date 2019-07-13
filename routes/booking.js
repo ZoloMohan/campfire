@@ -10,10 +10,7 @@ router.post("/:id/book", function(req, res){
         else{
             if(!(campground.author.id == req.user.id)){
                 Booking.create({
-                    campground:{
-                        id: req.params.id,
-                        name: campground.name
-                    },
+                    campground: req.params.id,
                     hostId: campground.author.id,
                     user:{
                         id:req.user.id,
