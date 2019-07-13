@@ -14,23 +14,26 @@ router.post("/", middleware.isLoggedIn,  function(req, res){
                 if(error) console.log(error);
                 else{
                     User.findById(req.user.id, function(error, user){
-                        user.reviews.push(review._id);
-                        user.save();
-                        review.campground.id = campground._id;
-                        review.campground.name = campground.name;
-                        review.author.id = req.user.id;
-                        review.author.username = req.user.username;
-                        review.save();
-                        var ratingSum = campground.rating * campground.reviews.length;
-                        campground.reviews.push(review._id);
-                        ratingSum = ratingSum + review.rating;
-                        campground.rating = ratingSum/campground.reviews.length;
-                        campground.ratingsNumber[review.rating] += 1;
-                        campground.save();
-                        req.user.reviewedCamps.push(campground._id);
-                        req.user.save();
-                        req.flash("success", "Review Created")
-                        res.redirect("/campgrounds/" + campground._id);
+                        if(error) console.log(error)
+                        else{
+                            user.reviews.push(review._id);
+                            user.save();
+                            review.campground.id = campground._id;
+                            review.campground.name = campground.name;
+                            review.author.id = req.user.id;
+                            review.author.username = req.user.username;
+                            review.save();
+                            var ratingSum = campground.rating * campground.reviews.length;
+                            campground.reviews.push(review._id);
+                            ratingSum = ratingSum + review.rating;
+                            campground.rating = ratingSum/campground.reviews.length;
+                            campground.ratingsNumber[review.rating] += 1;
+                            campground.save();
+                            req.user.reviewedCamps.push(campground._id);
+                            req.user.save();
+                            req.flash("success", "Review Created")
+                            res.redirect("/campgrounds/" + campground._id);
+                        }
                     })
                 }
             });
