@@ -97,3 +97,19 @@ body {
   border-color: #a77145;
 }
 /*# sourceMappingURL=custom-css.css.map */
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #eaab77;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background-color: #f3c59f; 
+}
+
+::-webkit-scrollbar-track{
+  background: rgba(48, 48, 48);
+}

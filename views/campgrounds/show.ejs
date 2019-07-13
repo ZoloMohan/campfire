@@ -50,7 +50,7 @@
             </div>
             <%# PRICE %>
             <p class="lead mb-0 number-regular"> <strong> Price: $ <%= campground.price %> / night </strong></p>
-            <p class="my-0 lead">Submitted by 
+            <p class="my-0 lead">Hosted by 
                 <% if(currentUser && currentUser.equals(campground.author.id)) { %>
                     You
                 <%} else {%>
