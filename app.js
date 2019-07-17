@@ -1,4 +1,4 @@
-var express       = require("express"),
+const express       = require("express"),
     app           = express(),
     bodyParser    = require("body-parser"),
     mongoose      = require("mongoose"),
@@ -8,13 +8,15 @@ var express       = require("express"),
     flash         = require('connect-flash'),
     User          = require("./models/user");
 
-var reviewRoutes = require("./routes/reviews"),
+const reviewRoutes = require("./routes/reviews"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index"),
     bookingRoutes = require("./routes/booking");
 
+const dbCredentials = require('./config/db');
+
 // mongoose.connect("mongodb://localhost/campfire", {useNewUrlParser:true, useFindAndModify: false});
-mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser:true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://"+dbCredentials.username+":"+dbCredentials.password+"@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majorityy", {useNewUrlParser:true, useFindAndModify: false});
 
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -54,5 +56,5 @@ passport.deserializeUser(User.deserializeUser());
 //=============================================================================================================================
 var port = process.env.PORT || 3000;
 app.listen(port , function(){
-    console.log("YelpCamp Server started at Port 3000.");
+    console.log("Campfire Server started at Port 3000.");
 });
