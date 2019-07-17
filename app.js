@@ -13,7 +13,7 @@ const reviewRoutes = require("./routes/reviews"),
     indexRoutes = require("./routes/index"),
     bookingRoutes = require("./routes/booking");
 
-const dbCredentials = require('./config/db');
+const dbCredentials = require('./configs/db');
 
 // mongoose.connect("mongodb://localhost/campfire", {useNewUrlParser:true, useFindAndModify: false});
 mongoose.connect("mongodb+srv://"+dbCredentials.username+":"+dbCredentials.password+"@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majorityy", {useNewUrlParser:true, useFindAndModify: false});
