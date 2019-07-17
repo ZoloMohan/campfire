@@ -13,8 +13,8 @@ var reviewRoutes = require("./routes/reviews"),
     indexRoutes = require("./routes/index"),
     bookingRoutes = require("./routes/booking");
 
-mongoose.connect("mongodb://localhost/campfire", {useNewUrlParser:true, useFindAndModify: false});
-// mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser:true, useFindAndModify: false});
+// mongoose.connect("mongodb://localhost/campfire", {useNewUrlParser:true, useFindAndModify: false});
+mongoose.connect("mongodb+srv://zolomohan:fortmongoknox@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser:true, useFindAndModify: false});
 
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -52,7 +52,7 @@ passport.deserializeUser(User.deserializeUser());
 //=============================================================================================================================
 //  SERVER INIT
 //=============================================================================================================================
-
-app.listen(3000 , function(){
+var port = process.env.PORT || 3000;
+app.listen(port , function(){
     console.log("YelpCamp Server started at Port 3000.");
 });
