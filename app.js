@@ -13,11 +13,8 @@ const reviewRoutes = require("./routes/reviews"),
     indexRoutes = require("./routes/index"),
     bookingRoutes = require("./routes/booking");
 
-const dbCredentials = require('./configs/db');
-
-// mongoose.connect("mongodb://localhost/campfire", {useNewUrlParser:true, useFindAndModify: false});
-mongoose.connect("mongodb+srv://"+dbCredentials.username+":"+dbCredentials.password+"@campfire-fyj1g.mongodb.net/test?retryWrites=true&w=majorityy", {useNewUrlParser:true, useFindAndModify: false});
-
+const url = process.env.DATABASEURL || "mongodb://localhost/campfire";
+mongoose.connect(url, {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
