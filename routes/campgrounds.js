@@ -38,13 +38,17 @@ router.post("/", middleware.isLoggedIn ,function(req, res){
                 console.log("Error at /campgrounds POST: Cannot Post Data to db");
             else{
                 User.findById(req.user.id, function(error, user){
-                    user.createdCamps.push(campground._id);
-                    user.save();
+                    if(error) console.log(error)
+                    else{
+                        user.createdCamps.push(campground._id);
+                        user.save();
+                    }
                 });
+                req.flash('success', `${campground.name} Added`)
+                res.redirect("/campgrounds");
             }
         }
     );
-    res.redirect("/campgrounds");
 })
 
 
