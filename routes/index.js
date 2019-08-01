@@ -55,7 +55,7 @@ router.post("/register", function(req, res){
                 res.render('user/register');
             }
             passport.authenticate("local")(req, res, function(){
-                req.flash("success", "Welcome to Campfire "+ user.username)
+                req.flash("success", `Welcome to Campfire ${user.name.first} ${user.name.last}`)
                 res.redirect("/campgrounds");
             });
         })
