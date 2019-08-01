@@ -8,6 +8,11 @@ reviewDeleteBtn.on('click', function(){
         url: '/campgrounds/'+campID+'/reviews/'+reviewID+'?_method=DELETE'
     })
     .done(function(){
+        $('body').toast({
+            title: 'Success',
+            message: 'Review Deleted',
+            class : 'success'
+        });
         let noOfRatings = parseInt($('#noOfRatings').text());
         reviewDeleteBtn.parent().parent().parent().fadeOut(function(){
             this.remove();
@@ -15,6 +20,10 @@ reviewDeleteBtn.on('click', function(){
         $('#noOfRatings').text(noOfRatings-1);
     })
     .fail(function(err){
-        alert("Comment Delete failed " + err)
+        $('body').toast({
+            title: 'Oops!',
+            message: 'Review Delete Failed! Try Again Later',
+            class : 'error'
+        });
     })
 })

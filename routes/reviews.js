@@ -88,8 +88,7 @@ router.delete("/:review_id",middleware.isLoggedIn, middleware.checkReviewAuthori
                             user.save();
                             Review.findByIdAndRemove(req.params.review_id, function(error){
                                 if(error) console.log(error);
-                                req.flash("success", "review Deleted");
-                                res.redirect("/campgrounds/"+req.params.id);
+                                res.redirect("/campgrounds/"+campground.id);
                             });
                         }
                     })
