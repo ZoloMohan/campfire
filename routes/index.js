@@ -16,6 +16,7 @@ router.get("/register", function(req, res){
     res.render("user/register");
 })
 
+//Dashboard
 router.get("/user/:id",middleware.isLoggedIn ,function(req, res){
     User.findById(req.params.id).populate({
         path: "userBookings",
@@ -73,11 +74,7 @@ router.get("/login", function(req, res){
 })
 
 //login User
-router.post("/login", passport.authenticate("local", { 
-        successRedirect: "/campgrounds", 
-        failureRedirect: "/login"
-    }), function(req, res){});
-
+router.post("/login", passport.authenticate("local", { successRedirect: "/campgrounds", failureRedirect: "/login"}));
 
 //logout User
 router.get("/logout", function(req, res){
