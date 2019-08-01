@@ -172,6 +172,16 @@
 <script src="/js/ratingAndEdit.js"></script>
 <script src="/js/navbarBG.js"></script>
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
+<script src="/lib/semantic/dist/fomantic.min.js"></script>
+<% if (success && success.length > 0) {%>
+<script>
+    $('body').toast({
+        title: 'Success',
+        message: '<%=success[0]%>',
+        class : 'success'
+    });
+</script>
+<% } %>
 <!--ajax-->
 <script src="/js/ajax/deleteComment.js"></script>
 <% include ../partials/footer %>

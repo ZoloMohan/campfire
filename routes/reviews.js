@@ -31,7 +31,7 @@ router.post("/", middleware.isLoggedIn,  function(req, res){
                             campground.save();
                             req.user.reviewedCamps.push(campground._id);
                             req.user.save();
-                            req.flash("success", "Review Created")
+                            req.flash("success", "Review Posted")
                             res.redirect("/campgrounds/" + campground._id);
                         }
                     })
