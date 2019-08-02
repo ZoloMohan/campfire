@@ -33,7 +33,7 @@ router.get("/user/:id",middleware.isLoggedIn ,function(req, res){
     }).populate("createdCamps").populate("reviews").exec(function(error, user){
         if(error) console.log(error);
         else
-            res.render("user/user", {user: user});
+            res.render("user/dashboard", {user: user});
     })
 })
 
