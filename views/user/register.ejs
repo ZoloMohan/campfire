@@ -1,4 +1,5 @@
 <%include ../partials/header %>
+<link rel="stylesheet" href="/lib/semantic/dist/fomantic.css">
 <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
@@ -34,7 +35,6 @@
             <div class="form-group">
             <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" class="form-control" required>
             </div>
-            <p class="d-none text-danger" id="dontMatch">Passwords Don't Match</p>
             <button class="btn btn-primary text-white px-4 mb-4 mt-3" id="submitBtn">Submit</button>
         </form>
         <div class="text-center">
@@ -56,4 +56,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
 <script src="/js/password/passwordShowHide.js"></script>
 <script src="/js/password/confirmPassword.js"></script>
+<script src="/lib/semantic/dist/fomantic.min.js"></script>
 <% include ../partials/footer %>
