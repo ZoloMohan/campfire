@@ -93,8 +93,9 @@ router.delete("/:id", middleware.isLoggedIn, middleware.checkCampgroundAuthoriza
                 user.save();
                 break;
             }
-            Campground.findByIdAndRemove(req.params.id, function(error){
+            Campground.findByIdAndRemove(req.params.id, function(error, campground){
             if(error) console.log(error);
+            else req.flash('success', `${campground.name} Sucessfully Deleted`);
             res.redirect("/campgrounds");
         })
     });
