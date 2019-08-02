@@ -75,12 +75,9 @@ router.put("/:id", middleware.isLoggedIn , middleware.checkCampgroundAuthorizati
     var campgroundFormData = req.body.campground;
     campgroundFormData.coordinates = req.body.coordinates;
     Campground.findByIdAndUpdate(req.params.id, campgroundFormData, function(error, campground){
-        if(error){
-            console.log(error);
-            res.redirect("/campgrounds/"+req.params.id);  
-        }
-        console.log(campground);
-        res.redirect("/campgrounds/"+req.params.id+"");
+        if(error) console.log(error);
+        else req.flash('success', `${campground.name} Edited Successfully`)
+        res.redirect("/campgrounds/"+req.params.id);  
     })
 })
 
