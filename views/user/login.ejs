@@ -1,4 +1,5 @@
 <%include ../partials/header %>
+<link rel="stylesheet" href="/lib/semantic/dist/fomantic.css">
 <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
@@ -39,4 +40,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
 <script src="/lib/jQuery.3.1.1.min.js"></script>
 <script src="/js/password/passwordShowHide.js"></script>
+<script src="/lib/semantic/dist/fomantic.min.js"></script>
+<% if (alert && alert.length > 0) {%>
+<script>
+    $('body').toast({
+        title: 'Error',
+        message: '<%=alert[0]%>',
+        class : 'error'
+    });
+</script>
+<% } %>
 <% include ../partials/footer %>

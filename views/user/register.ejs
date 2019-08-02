@@ -57,4 +57,13 @@
 <script src="/js/password/passwordShowHide.js"></script>
 <script src="/js/password/confirmPassword.js"></script>
 <script src="/lib/semantic/dist/fomantic.min.js"></script>
+<% if (alert && alert.length > 0) {%>
+<script>
+    $('body').toast({
+        title: 'Error',
+        message: '<%=alert[0]%>',
+        class : 'error'
+    });
+</script>
+<% } %>
 <% include ../partials/footer %>

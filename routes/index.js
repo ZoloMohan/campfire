@@ -70,11 +70,12 @@ router.post("/register", function(req, res){
 
 //login Form
 router.get("/login", function(req, res){
+    req.flash('error');
     res.render("user/login");
 })
 
 //login User
-router.post("/login", passport.authenticate("local", { successRedirect: "/campgrounds", failureRedirect: "/login"}));
+router.post("/login", passport.authenticate("local", { successRedirect: "/campgrounds", failureRedirect: "/login", failureFlash: true}));
 
 //logout User
 router.get("/logout", function(req, res){
