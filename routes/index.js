@@ -50,9 +50,8 @@ router.post("/register", function(req, res){
             email: req.body.email
         }), req.body.password, function(error, user){
             if(error){
-                console.log(error);
                 req.flash("error", error.message);
-                res.render('user/register');
+                res.redirect('/register');
             }
             passport.authenticate("local")(req, res, function(){
                 req.flash("success", `Welcome to Campfire ${user.name.first} ${user.name.last}`)
@@ -61,7 +60,6 @@ router.post("/register", function(req, res){
         })
     }
     else{
-        console.log("Passwords Don't Match")
         req.flash("Passwords Don't Match");
         res.redirect("/register");
     }
