@@ -86,18 +86,19 @@ router.put("/:id", middleware.isLoggedIn , middleware.checkCampgroundAuthorizati
 
 //Delete Campground
 router.delete("/:id", middleware.isLoggedIn, middleware.checkCampgroundAuthorization ,function(req, res){
-    User.findById(req.user.id, function(error, user){
-        for(var i = 0; i < user.createdCamps.length; i++)
-            if(user.createdCamps[i].equals(req.params.id)){
-                user.createdCamps.splice(i, 1);
-                user.save();
-                break;
-            }
-            Campground.findByIdAndRemove(req.params.id, function(error, campground){
-            if(error) console.log(error);
-            else req.flash('success', `${campground.name} Sucessfully Deleted`);
+     Campground.findByIdAndRemove(req.params.id, function(error, campground){
+        if(error) console.log(error);
+        else {
+            User.findById(req.user.id, function(error, user){
+                if(error) console.log(error);
+                else{
+                    user.createdCamps.splice(user.createdCamps.indexOf(req.params.id), 1);
+                    user.save();                     
+                }
+            })
+            req.flash('success', `${campground.name} Sucessfully Deleted`);
             res.redirect("/campgrounds");
-        })
+        }
     });
 })
 
