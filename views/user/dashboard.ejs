@@ -172,7 +172,7 @@
                     </span>
                   </div>
                   <div class="description">
-                    <div>Username: <a href="/user/<%= booking.user.id %>"><%= booking.user.username %> </a></div>
+                    <div>Username: <%= booking.user.username %> </div>
                     <span>
                       <%if(booking.status === "pending"){%>
                       <form action="/campgrounds/<%=booking.campground.id%>/book/<%=booking.id%>?_method=PUT" method ="POST" class="d-inline p-0 m-0 float-right">
@@ -181,7 +181,6 @@
                       <%}%>
                     </span>
                     <div>No. of People: <%=booking.noOfPeople.adults + booking.noOfPeople.children%></div>
-                  
                   </div>
                 </li>
                 <hr>

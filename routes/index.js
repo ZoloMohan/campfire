@@ -17,7 +17,7 @@ router.get('/register', function(req, res) {
 });
 
 //Dashboard
-router.get('/user/:id', middleware.isLoggedIn, function(req, res) {
+router.get('/user/:id', middleware.isLoggedIn, middleware.checkDashboardAuthorization, function(req, res) {
 	User.findById(req.params.id)
 		.populate({
 			path     : 'userBookings',

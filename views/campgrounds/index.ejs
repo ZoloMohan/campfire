@@ -54,9 +54,16 @@
 <% if (success && success.length > 0) {%>
 <script>
     $('body').toast({
-        title: 'Success',
         message: '<%=success[0]%>',
         class : 'success'
+    });
+</script>
+<% } %>
+<% if (alert && alert.length > 0) {%>
+<script>
+    $('body').toast({
+        message: '<%=alert[0]%>',
+        class : 'error'
     });
 </script>
 <% } %>

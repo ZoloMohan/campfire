@@ -32,6 +32,13 @@ var middleware = {
 		});
 	},
 
+	checkDashboardAuthorization: function(req,res, next){
+		if(req.params.id === req.user.id)
+			return next();
+		req.flash('error', 'You Are Not Authorized to View Others Dashboard');
+		return res.redirect('/campgrounds');
+	},
+
 	isLoggedIn                   : function(req, res, next) {
 		if (req.isAuthenticated()) return next();
 		req.flash('error', 'You Need to login to perform this action.');
