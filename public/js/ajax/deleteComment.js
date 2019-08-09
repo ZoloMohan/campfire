@@ -30,6 +30,7 @@ reviewDeleteBtn.on('click', function() {
 				this.remove();
 			});
 			$('#noOfRatings').text(noOfRatings - 1);
+			$('#reviewBtn').parent().html('<a class="btn btn-primary px-4 my-md-0 my-2" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </a>')
 		})
 		.fail(function(err) {
 			$('body').toast({

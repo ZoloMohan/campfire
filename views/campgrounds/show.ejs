@@ -104,7 +104,7 @@
             </div>
             
             <% if(campground.reviews.length == 0){ %>
-                <p class="lead">No Reviews Yet. Be the first one to leave a review!</p>
+                <p class="lead" id='noReviewsText'>No Reviews Yet. Be the first one to leave a review!</p>
             <% } else {%>           
             <% campground.reviews.forEach(function(review){ %>
             <div class="comment" id="<%=review.id%>">
