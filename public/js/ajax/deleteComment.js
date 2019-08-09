@@ -10,6 +10,7 @@ reviewDeleteBtn.on('click', function() {
 			.parent()
 			.parent()
 			.parent()
+			.parent()
 			.eq(0)
 			.children()
 			.eq(0)
@@ -30,7 +31,14 @@ reviewDeleteBtn.on('click', function() {
 				this.remove();
 			});
 			$('#noOfRatings').text(noOfRatings - 1);
-			$('#reviewBtn').parent().html('<a class="btn btn-primary px-4 my-md-0 my-2" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </a>')
+			$('#reviewBtn')
+				.parent()
+				.html(
+					'<a class="btn btn-primary px-4 my-md-0 my-2	" id="reviewBtn"  data-toggle="modal" data-target="#addReviewModal"> Leave a Review </a>'
+				);
+			if(noOfRatings - 1 === 0) {
+				$('.ui.comments #comments').html('<p class="lead" id="noReviewsText">No Reviews Yet. Be the first one to leave a review!</p>')
+			}
 		})
 		.fail(function(err) {
 			$('body').toast({
