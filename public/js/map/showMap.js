@@ -8,18 +8,18 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 function initMap() {
-  var lat = parseFloat($('#lattitude').val());
-  var lng = parseFloat($('#longitude').val());
-  var myLatLng = {lat,lng};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 13
-  });
-  
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    draggable: false,
-    map: map
-  });
-  marker.setVisible(true); 
+	var lat = parseFloat($('#lattitude').val());
+	var lng = parseFloat($('#longitude').val());
+	var myLatLng = { lat, lng };
+	var map = new google.maps.Map(document.getElementById('map'), {
+		center : myLatLng,
+		zoom   : 13
+	});
+
+	var marker = new google.maps.Marker({
+		position  : myLatLng,
+		draggable : false,
+		map       : map
+	});
+	marker.setVisible(true);
 }

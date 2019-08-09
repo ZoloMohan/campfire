@@ -1,3 +1,3 @@
-$('.navbar-toggler').on('click', function(){
-    $('.nav.navbar').toggleClass('navbar-background');
-})
+$('.navbar-toggler').on('click', function() {
+	$('.nav.navbar').toggleClass('navbar-background');
+});

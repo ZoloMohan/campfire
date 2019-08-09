@@ -1,65 +1,65 @@
-.nav-tabs .nav-item .active{
-    border-top: 2px solid #eaab77;;
+.nav-tabs .nav-item .active {
+	border-top: 2px solid #eaab77;
 }
 
-.nav-tabs .nav-item:hover{
-    border-bottom: none;
-}   
-
-#reviewCampLink{
-    font-family: Questrial, sans-serif;
-    font-size: 20px;
-    font-weight: 400; 
-    color: black;
-    text-decoration: none;
+.nav-tabs .nav-item:hover {
+	border-bottom: none;
 }
 
-#reviewCampLink:hover{
-    color: rgb(64, 64, 187);
+#reviewCampLink {
+	font-family: Questrial, sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	color: black;
+	text-decoration: none;
 }
 
-#pageNav{
-    background-color: white;
-    padding-bottom: 5px;
-    padding-top: 5px;
+#reviewCampLink:hover {
+	color: rgb(64, 64, 187);
 }
 
-.link a{
-    font-family: Questrial, sans-serif;
-    font-size: 20px;
+#pageNav {
+	background-color: white;
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
-a:hover{
-    text-decoration: none;
+.link a {
+	font-family: Questrial, sans-serif;
+	font-size: 20px;
 }
 
-.items{
-    border-radius: 10px;
-    padding: 15px;
-    border: 1px solid rgba(184, 183, 183, 0.363);
+a:hover {
+	text-decoration: none;
 }
 
-hr:last-child{
-    display: none;
+.items {
+	border-radius: 10px;
+	padding: 15px;
+	border: 1px solid rgba(184, 183, 183, 0.363);
 }
 
-div.image img{
-    height: inherit;
+hr:last-child {
+	display: none;
+}
+
+div.image img {
+	height: inherit;
 }
 
 ul.ui.items {
-    padding-bottom: 0;
+	padding-bottom: 0;
 }
 
-li.item .image img{
-    height: inherit;
+li.item .image img {
+	height: inherit;
 }
 
-#pageNav .nav-link{
-    transition: border 0.2s linear;
-    border-bottom: none;
+#pageNav .nav-link {
+	transition: border 0.2s linear;
+	border-bottom: none;
 }
 
-#pageNav .nav-link:hover{
-    border-bottom: none;
+#pageNav .nav-link:hover {
+	border-bottom: none;
 }

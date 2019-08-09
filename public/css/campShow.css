@@ -1,43 +1,43 @@
-.row{
-    transition: padding linear 0.3s;  
+.row {
+	transition: padding linear 0.3s;
 }
 
-#nav-date .nav-link{
-    font-size: 20px;
-    font-weight: 200;
+#nav-date .nav-link {
+	font-size: 20px;
+	font-weight: 200;
 }
 
-#campgroundDesc{
-    text-align: justify;    
+#campgroundDesc {
+	text-align: justify;
 }
 
-#createdOn{
-    color: gray;
-    font-weight: 200;
+#createdOn {
+	color: gray;
+	font-weight: 200;
 }
 
-#showCampDeleteBtn{
-    font-size: 18px;
-    border: none;
-    background-color: rgba(0,0,0,0);
-    color: #eaab77;
-    outline: none;
+#showCampDeleteBtn {
+	font-size: 18px;
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
+	color: #eaab77;
+	outline: none;
 }
 
-#showCampDeleteBtn:hover{
-    text-decoration: underline;
+#showCampDeleteBtn:hover {
+	text-decoration: underline;
 }
 
-#gMapLink{
-    font-size: 18px;
+#gMapLink {
+	font-size: 18px;
 }
 
-.number{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 200;
+.number {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
 }
 
-.number-regular{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+.number-regular {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
 }

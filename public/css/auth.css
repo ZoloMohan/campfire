@@ -1,182 +1,186 @@
 body {
-    background-color: #000;    
-    font-family: Raleway, sans-serif;
-} 
-
-#formSection{
-    height: 100%;
-    min-width: 500px;
-    width: 40%;
-    background-color: rgb(0,0,0,0.7);
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
+	background-color: #000;
+	font-family: Raleway, sans-serif;
 }
 
-#loginForm{
-    margin-top : 15vh;
+#formSection {
+	height: 100%;
+	min-width: 500px;
+	width: 40%;
+	background-color: rgb(0, 0, 0, 0.7);
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
 }
 
-#signUpForm{
-    margin-top: 5vh;
+#loginForm {
+	margin-top: 15vh;
 }
 
-.btn{
-    border-radius: 50px;
+#signUpForm {
+	margin-top: 5vh;
 }
 
-#passwordHide{
-    box-shadow: none;
-    cursor: pointer;
+.btn {
+	border-radius: 50px;
 }
 
-input[type='text'], input[type='password'], input[type='email']{
-    width: 100%;
-    color: #eaab77;
-    border-radius: 0px;
-    outline: none;
-    background-color: rgba(0,0,0,0.0);
-    border: none;
-    padding-bottom: 0px;
-    border-bottom: 1px solid gray;
-    transition: border-bottom linear 0.2s;
+#passwordHide {
+	box-shadow: none;
+	cursor: pointer;
 }
 
-input[type='text']:focus, input[type='password']:focus, input[type='email']:focus{
-    box-shadow: none;
-    color: #eaab77;
-    outline: none;
-    background-color: rgba(0,0,0,0.0);
-    border-bottom: 1px solid #eaab77;    
+input[type='text'],
+input[type='password'],
+input[type='email'] {
+	width: 100%;
+	color: #eaab77;
+	border-radius: 0px;
+	outline: none;
+	background-color: rgba(0, 0, 0, 0.0);
+	border: none;
+	padding-bottom: 0px;
+	border-bottom: 1px solid gray;
+	transition: border-bottom linear 0.2s;
 }
 
-#seperator{
-    color: #eaab77;
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='email']:focus {
+	box-shadow: none;
+	color: #eaab77;
+	outline: none;
+	background-color: rgba(0, 0, 0, 0.0);
+	border-bottom: 1px solid #eaab77;
 }
 
-.slideshow { 
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+#seperator {
+	color: #eaab77;
 }
 
-.slideshow li{ 
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    opacity: 0;
-    z-index: 0;  
+.slideshow {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-.slideshow li:nth-child(1) { 
-    background-image: url('https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg');
-    animation: imageAnimationStarter 50s linear infinite;
-}
-.slideshow li:nth-child(2) { 
-    background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
-    animation: imageAnimation 50s linear infinite;
-    animation-delay: 10s; 
-}
-.slideshow li:nth-child(3) { 
-    background-image: url(https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg);
-    animation: imageAnimation 50s linear infinite;
-    animation-delay: 20s; 
-}
-.slideshow li:nth-child(4) { 
-    background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
-    animation: imageAnimation 50s linear infinite;
-    animation-delay: 30s; 
-}
-.slideshow li:nth-child(5) { 
-    background-image: url(https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg);
-    animation: imageAnimation 50s linear infinite;
-    animation-delay: 40s; 
-}
-.slideshow li:nth-child(6){
-    background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
-    animation: imageAnimation 50s linear infinite;
-    animation-delay: 50s;
+.slideshow li {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	opacity: 0;
+	z-index: 0;
 }
 
-@keyframes imageAnimationStarter{
-    0% { 
-        opacity: 1; 
-        animation-timing-function: ease-in;
-      }
-      10% {
-        opacity: 1;
-        animation-timing-function: ease-out;
-      }
-      20% {
-        opacity: 1
-      }
-      30% {
-        opacity: 0
-      }
+.slideshow li:nth-child(1) {
+	background-image: url('https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg');
+	animation: imageAnimationStarter 50s linear infinite;
+}
+.slideshow li:nth-child(2) {
+	background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
+	animation: imageAnimation 50s linear infinite;
+	animation-delay: 10s;
+}
+.slideshow li:nth-child(3) {
+	background-image: url(https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg);
+	animation: imageAnimation 50s linear infinite;
+	animation-delay: 20s;
+}
+.slideshow li:nth-child(4) {
+	background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
+	animation: imageAnimation 50s linear infinite;
+	animation-delay: 30s;
+}
+.slideshow li:nth-child(5) {
+	background-image: url(https://img1.akspic.com/image/22200-horizon-atmosphere-mountain_range-afterglow-dawn-5120x2880.jpg);
+	animation: imageAnimation 50s linear infinite;
+	animation-delay: 40s;
+}
+.slideshow li:nth-child(6) {
+	background-image: url(https://wallpapersite.com/images/wallpapers/mountains-5120x2880-silent-sunset-minimal-5k-10447.jpg);
+	animation: imageAnimation 50s linear infinite;
+	animation-delay: 50s;
 }
 
-@keyframes imageAnimation { 
-    0% { 
-      opacity: 0; 
-      animation-timing-function: ease-in;
-    }
-    10% {
-      opacity: 1;
-      animation-timing-function: ease-out;
-    }
-    20% {
-      opacity: 1
-    }
-    30% {
-      opacity: 0
-    }
-  }
+@keyframes imageAnimationStarter {
+	0% {
+		opacity: 1;
+		animation-timing-function: ease-in;
+	}
+	10% {
+		opacity: 1;
+		animation-timing-function: ease-out;
+	}
+	20% {
+		opacity: 1;
+	}
+	30% {
+		opacity: 0;
+	}
+}
 
-  /* Older browser support - .no-cssanimations class added by modernizr */
+@keyframes imageAnimation {
+	0% {
+		opacity: 0;
+		animation-timing-function: ease-in;
+	}
+	10% {
+		opacity: 1;
+		animation-timing-function: ease-out;
+	}
+	20% {
+		opacity: 1;
+	}
+	30% {
+		opacity: 0;
+	}
+}
+
+/* Older browser support - .no-cssanimations class added by modernizr */
 .no-cssanimations .slideshow li {
 	opacity: 1;
 }
 
 @-webkit-keyframes autofill {
-    to {
-        color: #eaab77;
-        background: transparent;
-    }
+	to {
+		color: #eaab77;
+		background: transparent;
+	}
 }
 
 input:-webkit-autofill {
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
+	-webkit-animation-name: autofill;
+	-webkit-animation-fill-mode: both;
 }
 
-::selection{
-    color: white;
-    background: #f3caa9;
+::selection {
+	color: white;
+	background: #f3caa9;
 }
 
-@media(max-width: 500px){
-    #formSection{
-        min-width: 350px;
-    }
+@media (max-width: 500px) {
+	#formSection {
+		min-width: 350px;
+	}
 }
 
-@media(max-width: 375px){
-    #formSection{
-        min-width: 300px;
-    }
+@media (max-width: 375px) {
+	#formSection {
+		min-width: 300px;
+	}
 }
