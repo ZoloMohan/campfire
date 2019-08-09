@@ -20,8 +20,8 @@ router.post("/:id/book", function(req, res){
                         adults: req.body.adults,
                         children: req.body.children
                     },
-                    noOfNights:req.body.noOfNights,
-                    price: (req.body.adults + req.body.children) * campground.price * req.body.noOfNights
+										noOfNights:req.body.noOfNights,
+                    price: (parseInt(req.body.adults) + parseInt(req.body.children)) * parseInt(campground.price) * parseInt(req.body.noOfNights)
                 }, function(error, booking){
                     if(error) console.log(error);
                     else{
